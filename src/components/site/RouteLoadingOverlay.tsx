@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState, useRef, useCallback } from "react";
-import logoAsset from "@/assets/yaytrack-logo.png.asset.json";
+import logoAsset from "@/assets/yaytrack-logo.png";
 
 export function RouteLoadingOverlay() {
   const [show, setShow] = useState(false);
@@ -82,7 +82,7 @@ export function RouteLoadingOverlay() {
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center gap-4"
           >
-            <img src={logoAsset.url} alt="YayTrack" className="h-8 w-auto" />
+            <img src={logoAsset} alt="YayTrack" className="h-8 w-auto" />
             <div className="h-0.5 w-32 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-full rounded-full bg-gradient-brand"

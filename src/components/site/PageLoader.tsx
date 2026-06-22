@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import logoAsset from "@/assets/yaytrack-logo.png.asset.json";
+import logoAsset from "@/assets/yaytrack-logo.png";
 
 export function PageLoader() {
   const [visible, setVisible] = useState(true);
@@ -58,7 +58,7 @@ export function PageLoader() {
             className="relative z-10 flex flex-col items-center gap-6"
           >
             <img
-              src={logoAsset.url}
+              src={logoAsset}
               alt="YayTrack"
               className="h-10 w-auto"
             />

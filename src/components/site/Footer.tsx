@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoAsset from "@/assets/yaytrack-logo.png.asset.json";
+import logoAsset from "@/assets/yaytrack-logo.png";
 
 export function Footer() {
   return (
@@ -12,7 +12,7 @@ export function Footer() {
         <div>
           <Link to="/" className="flex items-center gap-2">
             <img
-              src={logoAsset.url}
+              src={logoAsset}
               alt="YayTrack"
               className="h-9 w-auto"
             />
