@@ -10,16 +10,9 @@ export function PageLoader() {
   useEffect(() => {
     setMounted(true);
 
-    const alreadySeen = sessionStorage.getItem("yaytrack-loader-seen");
-    if (alreadySeen) {
-      setVisible(false);
-      return;
-    }
-
     const t1 = setTimeout(() => {
       setVisible(false);
-      sessionStorage.setItem("yaytrack-loader-seen", "1");
-    }, 2800);
+    }, 3200);
 
     return () => clearTimeout(t1);
   }, []);
@@ -34,6 +27,8 @@ export function PageLoader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          role="status"
+          aria-label="Website loading"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
         >
           {/* Gradient blobs behind */}
