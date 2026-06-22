@@ -35,7 +35,7 @@ function ContactPage() {
 
           <div className="mt-10 space-y-4">
             {[
-              { icon: Mail, label: "team@opera.app" },
+              { icon: Mail, label: "team@yaytrack.com" },
               { icon: Phone, label: "+1 (415) 555-0190" },
               { icon: MapPin, label: "San Francisco · Remote-first" },
             ].map((c) => (
