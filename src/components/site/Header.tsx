@@ -33,7 +33,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="group flex items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-brand text-primary-foreground font-display font-bold shadow-glow transition-transform group-hover:rotate-6">
-            O
+            Y
           </span>
           <span className="font-display text-lg font-bold tracking-tight">YayTrack</span>
         </Link>
