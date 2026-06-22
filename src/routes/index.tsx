@@ -30,6 +30,7 @@ import {
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { WordReveal } from "@/components/site/WordReveal";
+import { LazySection } from "@/components/site/LazySection";
 import OnboardCard from "@/components/ui/onboard-card";
 
 export const Route = createFileRoute("/")({
@@ -54,12 +55,24 @@ function Index() {
       <ScrollProgress />
       <Hero />
       <LogoMarquee />
-      <Pillars />
-      <DashboardSection />
-      <Stats />
-      <ServicesPreview />
-      <OnboardDemo />
-      <CTA />
+      <LazySection minHeight={520}>
+        <Pillars />
+      </LazySection>
+      <LazySection minHeight={760}>
+        <DashboardSection />
+      </LazySection>
+      <LazySection minHeight={320}>
+        <Stats />
+      </LazySection>
+      <LazySection minHeight={560}>
+        <ServicesPreview />
+      </LazySection>
+      <LazySection minHeight={620}>
+        <OnboardDemo />
+      </LazySection>
+      <LazySection minHeight={420}>
+        <CTA />
+      </LazySection>
     </>
   );
 }
