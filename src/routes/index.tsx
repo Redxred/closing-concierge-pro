@@ -30,6 +30,7 @@ import {
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { WordReveal } from "@/components/site/WordReveal";
+import OnboardCard from "@/components/ui/onboard-card";
 
 export const Route = createFileRoute("/")({
   head: () => ({
