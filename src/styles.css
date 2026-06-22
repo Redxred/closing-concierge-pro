@@ -229,3 +229,12 @@
     animation: gradient-shift 8s ease infinite;
   }
 }
+
+@layer utilities {
+  /* Skip rendering of off-screen sections. Browser still reserves space via
+     contain-intrinsic-size so the scrollbar stays accurate and CLS stays low. */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 800px;
+  }
+}

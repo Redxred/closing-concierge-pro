@@ -36,6 +36,10 @@ export function Header() {
           <img
             src={logoAsset}
             alt="YayTrack"
+            width={140}
+            height={32}
+            decoding="async"
+            fetchPriority="high"
             className="h-8 w-auto transition-transform group-hover:scale-105"
           />
         </Link>

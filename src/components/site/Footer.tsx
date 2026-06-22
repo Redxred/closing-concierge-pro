@@ -14,6 +14,10 @@ export function Footer() {
             <img
               src={logoAsset}
               alt="YayTrack"
+              width={160}
+              height={36}
+              loading="lazy"
+              decoding="async"
               className="h-9 w-auto"
             />
           </Link>
