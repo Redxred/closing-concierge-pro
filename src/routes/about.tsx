@@ -5,9 +5,9 @@ import { ArrowRight, Eye, ShieldCheck, Workflow } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Opera — The first OCaaS partner for real estate" },
-      { name: "description", content: "Opera is the first Operational Capacity as a Service partner — a process-driven, tech-enabled transaction execution team for real estate." },
-      { property: "og:title", content: "About Opera" },
+      { title: "About YayTrack — The first OCaaS partner for real estate" },
+      { name: "description", content: "YayTrack is the first YayTracktional Capacity as a Service partner — a process-driven, tech-enabled transaction execution team for real estate." },
+      { property: "og:title", content: "About YayTrack" },
       { property: "og:description", content: "Human execution. Smart software. Built for real estate operations." },
     ],
   }),
@@ -21,7 +21,7 @@ function AboutPage() {
         <div aria-hidden className="absolute -top-20 left-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-hero opacity-25 blur-3xl" />
         <div className="mx-auto max-w-4xl px-6 text-center">
           <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">About Opera</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">About YayTrack</span>
             <h1 className="mt-5 font-display text-5xl font-bold tracking-tight md:text-7xl">
               We eliminate the <span className="text-gradient-hero">operational chaos</span> of real estate.
             </h1>
@@ -46,7 +46,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">Who we are</span>
-            <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Operational Capacity as a Service</h2>
+            <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">YayTracktional Capacity as a Service</h2>
             <p className="mt-5 text-lg text-muted-foreground">
               We are the first true OCaaS partner for the real estate industry. We aren't a self-serve software platform where you still do all the manual entry, and we aren't unmanaged virtual assistants who require constant direction.
             </p>

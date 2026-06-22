@@ -5,9 +5,9 @@ import { ArrowRight, CalendarClock, ClipboardCheck, FileSearch, Handshake, Layer
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Opera Transaction Coordination" },
-      { name: "description", content: "From file setup to compliance auditing — Opera runs every contract-to-close task so agents focus on selling." },
-      { property: "og:title", content: "Opera Services" },
+      { title: "Services — YayTrack Transaction Coordination" },
+      { name: "description", content: "From file setup to compliance auditing — YayTrack runs every contract-to-close task so agents focus on selling." },
+      { property: "og:title", content: "YayTrack Services" },
       { property: "og:description", content: "End-to-end real estate transaction execution." },
     ],
   }),

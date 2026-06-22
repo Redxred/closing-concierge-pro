@@ -35,7 +35,7 @@ export function Header() {
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-brand text-primary-foreground font-display font-bold shadow-glow transition-transform group-hover:rotate-6">
             O
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">Opera</span>
+          <span className="font-display text-lg font-bold tracking-tight">YayTrack</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

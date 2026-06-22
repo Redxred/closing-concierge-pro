@@ -5,9 +5,9 @@ import { ArrowRight, Eye, FileUp, Trophy, Workflow } from "lucide-react";
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How it works — Opera" },
-      { name: "description", content: "Submit a contract. Opera coordinates the rest. See the four-step workflow." },
-      { property: "og:title", content: "How Opera works" },
+      { title: "How it works — YayTrack" },
+      { name: "description", content: "Submit a contract. YayTrack coordinates the rest. See the four-step workflow." },
+      { property: "og:title", content: "How YayTrack works" },
       { property: "og:description", content: "Contract in. Closing out. Four steps." },
     ],
   }),
@@ -33,7 +33,7 @@ function HowPage() {
               Four steps. <span className="text-gradient-hero">Zero chaos.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-              From the moment a contract is executed to the day the file closes, Opera runs the operational layer.
+              From the moment a contract is executed to the day the file closes, YayTrack runs the operational layer.
             </p>
           </Reveal>
         </div>
@@ -63,7 +63,7 @@ function HowPage() {
       <section className="py-24">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
-            <h2 className="font-display text-4xl font-bold md:text-5xl">Ready to test-drive Opera?</h2>
+            <h2 className="font-display text-4xl font-bold md:text-5xl">Ready to test-drive YayTrack?</h2>
             <p className="mt-4 text-lg text-muted-foreground">Submit one contract. We'll run it. No retainer.</p>
             <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-4 text-sm font-bold text-background hover:scale-105 transition-transform">
               Get started <ArrowRight className="h-4 w-4" />
