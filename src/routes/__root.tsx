@@ -15,6 +15,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { PageLoader } from "@/components/site/PageLoader";
 import { RouteLoadingOverlay } from "@/components/site/RouteLoadingOverlay";
+import { CoordinatorWidget } from "@/components/site/CoordinatorWidget";
 
 function NotFoundComponent() {
   return (
@@ -135,6 +136,7 @@ function RootComponent() {
         </main>
         <Footer />
       </div>
+      <CoordinatorWidget />
     </QueryClientProvider>
   );
 }
