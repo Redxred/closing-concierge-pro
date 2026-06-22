@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
+import logoAsset from "@/assets/yaytrack-logo.png.asset.json";
 
 export function PageLoader() {
   const [visible, setVisible] = useState(true);
