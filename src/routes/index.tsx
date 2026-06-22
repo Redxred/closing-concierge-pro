@@ -157,7 +157,7 @@ function FloatingDashboard() {
             <span className="h-2.5 w-2.5 rounded-full bg-brand-yellow/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-brand-cyan/80" />
           </div>
-          <div className="text-xs font-medium text-muted-foreground">opera.app / deals</div>
+          <div className="text-xs font-medium text-muted-foreground">yaytrack.app / deals</div>
           <div className="h-2.5 w-12 rounded-full bg-muted" />
         </div>
 
