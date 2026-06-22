@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logoAsset from "@/assets/yaytrack-logo.png.asset.json";
+import logoAsset from "@/assets/yaytrack-logo.png";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -34,7 +34,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="group flex items-center gap-2">
           <img
-            src={logoAsset.url}
+            src={logoAsset}
             alt="YayTrack"
             className="h-8 w-auto transition-transform group-hover:scale-105"
           />
