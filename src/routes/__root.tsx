@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { PageLoader } from "@/components/site/PageLoader";
+import { RouteLoadingOverlay } from "@/components/site/RouteLoadingOverlay";
 
 function NotFoundComponent() {
   return (
@@ -125,6 +126,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PageLoader />
+      <RouteLoadingOverlay />
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1 pt-16">
