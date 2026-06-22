@@ -58,6 +58,7 @@ function Index() {
       <DashboardSection />
       <Stats />
       <ServicesPreview />
+      <OnboardDemo />
       <CTA />
     </>
   );
