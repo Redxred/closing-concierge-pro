@@ -282,9 +282,10 @@ function Pillars() {
         <Reveal>
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">The YayTrack difference</span>
-            <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
-              Not software. Not a VA. <span className="text-gradient-brand">Execution.</span>
-            </h2>
+            <WordReveal
+              text="Not software. Not a VA. Execution."
+              className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl"
+            />
             <p className="mt-4 text-lg text-muted-foreground">
               We’re a process-driven, tech-enabled transaction execution partner — built around three pillars.
             </p>
