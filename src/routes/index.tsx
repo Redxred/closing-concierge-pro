@@ -624,6 +624,48 @@ function ServicesPreview() {
   );
 }
 
+function OnboardDemo() {
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">Getting started</span>
+              <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+                Onboard in <span className="text-gradient-brand">under a minute</span>.
+              </h2>
+              <p className="mt-5 text-lg text-muted-foreground">
+                No complex setup. No long forms. Submit a contract and watch YayTrack spin up your deal instantly.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {[
+                  "Upload contract — we auto-map critical dates",
+                  "Review pre-built timeline in seconds",
+                  "Track everything to the closing table",
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-blue" />
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Reveal delay={0.15}>
+              <OnboardCard
+                duration={3000}
+                step1="Welcome Aboard"
+                step2="Verifying Details"
+                step3="Account Created"
+              />
+            </Reveal>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function CTA() {
   return (
     <section className="py-24">
