@@ -4,20 +4,15 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 
 export function PageLoader() {
-  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-
     const t1 = setTimeout(() => {
       setVisible(false);
     }, 3200);
 
     return () => clearTimeout(t1);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <AnimatePresence>
@@ -29,6 +24,7 @@ export function PageLoader() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           role="status"
           aria-label="Website loading"
+          aria-live="polite"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
         >
           {/* Gradient blobs behind */}
