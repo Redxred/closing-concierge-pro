@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "motion/react";
+import { useRef, useEffect, useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -15,6 +15,8 @@ import {
   Zap,
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { WordReveal } from "@/components/site/WordReveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
