@@ -379,7 +379,42 @@ function DashboardSection() {
   );
 }
 
+function AnimatedCounter({ value }: { value: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    if (!isInView) return;
+    const numeric = parseFloat(value.replace(/[^0-9.]/g, ""));
+    if (isNaN(numeric)) {
+      setDisplay(value);
+      return;
+    }
+    const suffix = value.replace(/[0-9.]/g, "");
+    let start = 0;
+    const duration = 1200;
+    const startTime = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * numeric);
+      setDisplay(current + suffix);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, [isInView, value]);
+
+  return <div ref={ref}>{display}</div>;
+}
+
 function Stats() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   const stats = [
     { v: "180+", l: "moving parts per deal" },
     { v: "0", l: "monthly retainers" },
@@ -387,16 +422,18 @@ function Stats() {
     { v: "100%", l: "compliance coverage" },
   ];
   return (
-    <section className="py-20">
+    <section ref={ref} className="py-20 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-4">
+        <motion.div style={{ y }} className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.l} delay={i * 0.05} className="bg-background p-8 text-center">
-              <div className="font-display text-5xl font-bold text-gradient-brand">{s.v}</div>
+              <div className="font-display text-5xl font-bold text-gradient-brand">
+                <AnimatedCounter value={s.v} />
+              </div>
               <div className="mt-2 text-sm text-muted-foreground">{s.l}</div>
             </Reveal>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
