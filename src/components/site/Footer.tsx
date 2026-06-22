@@ -14,7 +14,7 @@ export function Footer() {
             <span className="font-display text-xl font-bold">YayTrack</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm text-background/60">
-            YayTracktional Capacity as a Service. Real humans, smart software — coordinating every real estate transaction from contract to close.
+            Operational Capacity as a Service. Real humans, smart software — coordinating every real estate transaction from contract to close.
           </p>
         </div>
 

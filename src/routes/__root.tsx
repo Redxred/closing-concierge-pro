@@ -79,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "YayTrack — YayTracktional Capacity as a Service for Real Estate" },
+      { title: "YayTrack — Operational Capacity as a Service for Real Estate" },
       { name: "description", content: "YayTrack is the tech-enabled human team that runs your real estate transactions contract-to-close. Pay per transaction. No retainers." },
       { name: "author", content: "YayTrack" },
-      { property: "og:title", content: "YayTrack — YayTracktional Capacity as a Service" },
+      { property: "og:title", content: "YayTrack — Operational Capacity as a Service" },
       { property: "og:description", content: "We coordinate every real estate transaction from contract to close so you can focus on selling." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

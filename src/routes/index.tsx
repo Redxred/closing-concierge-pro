@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
         content:
           "YayTrack is the tech-enabled human team that coordinates your real estate transactions contract-to-close. Pay per deal. Zero retainers.",
       },
-      { property: "og:title", content: "YayTrack — YayTracktional Capacity as a Service" },
+      { property: "og:title", content: "YayTrack — Operational Capacity as a Service" },
       { property: "og:description", content: "Stop chasing paperwork. Start chasing listings." },
     ],
   }),
@@ -76,7 +76,7 @@ function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-pink" />
-            YayTracktional Capacity as a Service
+            Operational Capacity as a Service
           </motion.div>
 
           <motion.h1
