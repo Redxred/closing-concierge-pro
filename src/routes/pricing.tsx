@@ -5,9 +5,9 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Pay per transaction with Opera" },
-      { name: "description", content: "No retainers. No surprise fees. Opera charges per active transaction — you pay when you have deals." },
-      { property: "og:title", content: "Opera Pricing" },
+      { title: "Pricing — Pay per transaction with YayTrack" },
+      { name: "description", content: "No retainers. No surprise fees. YayTrack charges per active transaction — you pay when you have deals." },
+      { property: "og:title", content: "YayTrack Pricing" },
       { property: "og:description", content: "Per-transaction pricing built for agents, teams, and brokerages." },
     ],
   }),

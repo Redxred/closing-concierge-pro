@@ -19,13 +19,13 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Opera — Run every real estate transaction on autopilot" },
+      { title: "YayTrack — Run every real estate transaction on autopilot" },
       {
         name: "description",
         content:
-          "Opera is the tech-enabled human team that coordinates your real estate transactions contract-to-close. Pay per deal. Zero retainers.",
+          "YayTrack is the tech-enabled human team that coordinates your real estate transactions contract-to-close. Pay per deal. Zero retainers.",
       },
-      { property: "og:title", content: "Opera — Operational Capacity as a Service" },
+      { property: "og:title", content: "YayTrack — Operational Capacity as a Service" },
       { property: "og:description", content: "Stop chasing paperwork. Start chasing listings." },
     ],
   }),
@@ -96,7 +96,7 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl"
           >
-            A single deal has 180–300 moving parts. Opera’s human coordinators plus smart software
+            A single deal has 180–300 moving parts. YayTrack’s human coordinators plus smart software
             run them all — so you focus on what you do best: selling.
           </motion.p>
 
@@ -157,7 +157,7 @@ function FloatingDashboard() {
             <span className="h-2.5 w-2.5 rounded-full bg-brand-yellow/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-brand-cyan/80" />
           </div>
-          <div className="text-xs font-medium text-muted-foreground">opera.app / deals</div>
+          <div className="text-xs font-medium text-muted-foreground">yaytrack.app / deals</div>
           <div className="h-2.5 w-12 rounded-full bg-muted" />
         </div>
 
@@ -278,7 +278,7 @@ function Pillars() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">The Opera difference</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">The YayTrack difference</span>
             <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
               Not software. Not a VA. <span className="text-gradient-brand">Execution.</span>
             </h2>
@@ -455,7 +455,7 @@ function CTA() {
                   Hand off the chaos. <br /> <span className="text-gradient-hero">Keep the commission.</span>
                 </h2>
                 <p className="mt-4 max-w-lg text-background/70">
-                  Submit your next contract and watch Opera run it to the closing table.
+                  Submit your next contract and watch YayTrack run it to the closing table.
                 </p>
               </div>
               <div className="flex flex-col gap-3 md:items-end">

@@ -10,8 +10,8 @@ export function Footer() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand font-display font-bold">O</span>
-            <span className="font-display text-xl font-bold">Opera</span>
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand font-display font-bold">Y</span>
+            <span className="font-display text-xl font-bold">YayTrack</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm text-background/60">
             Operational Capacity as a Service. Real humans, smart software — coordinating every real estate transaction from contract to close.
@@ -60,7 +60,7 @@ export function Footer() {
         ))}
       </div>
       <div className="relative mx-auto flex max-w-7xl flex-col gap-4 border-t border-background/10 px-6 py-6 text-xs text-background/50 md:flex-row md:items-center md:justify-between">
-        <div>© {new Date().getFullYear()} Opera Systems. Professional administrative services.</div>
+        <div>© {new Date().getFullYear()} YayTrack Systems. Professional administrative services.</div>
         <div>Coordinators operate in a supportive, administrative capacity. We do not perform licensed real estate activities.</div>
       </div>
     </footer>
