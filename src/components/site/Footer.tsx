@@ -10,7 +10,7 @@ export function Footer() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand font-display font-bold">O</span>
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand font-display font-bold">Y</span>
             <span className="font-display text-xl font-bold">YayTrack</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm text-background/60">
