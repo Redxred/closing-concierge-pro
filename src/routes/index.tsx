@@ -1,6 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useInView } from "motion/react";
-import { useRef, useEffect, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+  type MotionValue,
+} from "motion/react";
+import { useRef, useEffect, useState, memo } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -55,6 +64,7 @@ function Index() {
 
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 220]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -160]);
@@ -64,22 +74,50 @@ function Hero() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
 
-  // Mouse-driven parallax
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  // Mouse-driven parallax — MotionValues + rAF, no React re-renders
+  const mxRaw = useMotionValue(0);
+  const myRaw = useMotionValue(0);
+  const mx = useSpring(mxRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+  const my = useSpring(myRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
+    if (reduceMotion) return;
+    let raf = 0;
+    let nx = 0;
+    let ny = 0;
+    let pending = false;
+
+    const flush = () => {
+      mxRaw.set(nx);
+      myRaw.set(ny);
+      pending = false;
+    };
+    const onMove = (e: MouseEvent) => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      setMouse({ x: (e.clientX - cx) / cx, y: (e.clientY - cy) / cy });
+      nx = (e.clientX - cx) / cx;
+      ny = (e.clientY - cy) / cy;
+      if (!pending) {
+        pending = true;
+        raf = requestAnimationFrame(flush);
+      }
     };
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
-  }, []);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, [mxRaw, myRaw, reduceMotion]);
+
+  // Derive blob x-offsets from the mouse MotionValue (no React state)
+  const blob1X = useTransform(mx, (v) => v * 30);
+  const blob2X = useTransform(mx, (v) => v * -40);
+  const blob3X = useTransform(mx, (v) => v * 20);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pb-24 pt-16">
+    <section ref={ref} className="relative overflow-hidden pb-24 pt-16 [contain:layout_paint]">
       {/* Layered parallax background */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 will-change-transform">
         {/* Parallax grid */}
         <motion.div
           style={{ y: gridY }}
@@ -87,16 +125,16 @@ function Hero() {
         />
         {/* Gradient blobs with mouse + scroll parallax */}
         <motion.div
-          style={{ y: y1, x: mouse.x * 30 }}
-          className="absolute -left-32 top-0 h-[520px] w-[520px] rounded-full bg-gradient-brand opacity-40 blur-3xl animate-blob"
+          style={{ y: y1, x: blob1X }}
+          className="absolute -left-32 top-0 h-[520px] w-[520px] rounded-full bg-gradient-brand opacity-40 blur-3xl animate-blob will-change-transform"
         />
         <motion.div
-          style={{ y: y2, x: mouse.x * -40 }}
-          className="absolute right-[-10%] top-32 h-[460px] w-[460px] rounded-full bg-gradient-cool opacity-40 blur-3xl animate-blob [animation-delay:-4s]"
+          style={{ y: y2, x: blob2X }}
+          className="absolute right-[-10%] top-32 h-[460px] w-[460px] rounded-full bg-gradient-cool opacity-40 blur-3xl animate-blob [animation-delay:-4s] will-change-transform"
         />
         <motion.div
-          style={{ y: y3, x: mouse.x * 20 }}
-          className="absolute left-1/3 bottom-0 h-[420px] w-[420px] rounded-full bg-gradient-warm opacity-30 blur-3xl animate-blob [animation-delay:-8s]"
+          style={{ y: y3, x: blob3X }}
+          className="absolute left-1/3 bottom-0 h-[420px] w-[420px] rounded-full bg-gradient-warm opacity-30 blur-3xl animate-blob [animation-delay:-8s] will-change-transform"
         />
 
         {/* Floating decorative orbs */}
@@ -189,22 +227,28 @@ function Hero() {
         </div>
 
         {/* Floating dashboard preview */}
-        <FloatingDashboard mouseX={mouse.x} mouseY={mouse.y} />
+        <FloatingDashboard mx={mx} my={my} />
       </motion.div>
     </section>
   );
 }
 
-function FloatingDashboard({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
+const FloatingDashboard = memo(function FloatingDashboard({
+  mx,
+  my,
+}: {
+  mx: MotionValue<number>;
+  my: MotionValue<number>;
+}) {
+  const rotateY = useTransform(mx, (v) => v * 6);
+  const rotateX = useTransform(my, (v) => v * -6);
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, rotate: -2 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      style={{
-        transform: `perspective(1200px) rotateY(${mouseX * 6}deg) rotateX(${mouseY * -6}deg)`,
-      }}
-      className="relative transition-transform duration-200 ease-out"
+      style={{ rotateY, rotateX, transformPerspective: 1200 }}
+      className="relative will-change-transform [transform-style:preserve-3d]"
     >
       <div className="absolute -inset-4 rounded-[28px] bg-gradient-hero opacity-30 blur-2xl" />
 
@@ -323,7 +367,7 @@ function FloatingDashboard({ mouseX, mouseY }: { mouseX: number; mouseY: number 
       </motion.div>
     </motion.div>
   );
-}
+});
 
 function LogoMarquee() {
   const items = ["SkySlope", "Dotloop", "DocuSign", "qualia", "Stewart", "Ramquest", "First American", "Notarize"];
