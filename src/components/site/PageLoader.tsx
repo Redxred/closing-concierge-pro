@@ -4,27 +4,15 @@ import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 
 export function PageLoader() {
-  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-
-    const alreadySeen = sessionStorage.getItem("yaytrack-loader-seen");
-    if (alreadySeen) {
-      setVisible(false);
-      return;
-    }
-
     const t1 = setTimeout(() => {
       setVisible(false);
-      sessionStorage.setItem("yaytrack-loader-seen", "1");
-    }, 2800);
+    }, 3200);
 
     return () => clearTimeout(t1);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <AnimatePresence>
@@ -34,6 +22,9 @@ export function PageLoader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          role="status"
+          aria-label="Website loading"
+          aria-live="polite"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
         >
           {/* Gradient blobs behind */}
