@@ -13,7 +13,7 @@ import {
   Sparkles,
   ArrowRight,
 } from "lucide-react";
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -230,7 +230,7 @@ function PricingPage() {
       y: 0,
       opacity: 1,
       filter: "blur(0px)",
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
