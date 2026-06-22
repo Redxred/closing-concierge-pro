@@ -13,6 +13,10 @@ import {
   Sparkles,
   Workflow,
   Zap,
+  Calendar,
+  FileText,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
@@ -52,25 +56,73 @@ function Index() {
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 220]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -160]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+
+  // Mouse-driven parallax
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      setMouse({ x: (e.clientX - cx) / cx, y: (e.clientY - cy) / cy });
+    };
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
 
   return (
     <section ref={ref} className="relative overflow-hidden pb-24 pt-16">
-      {/* Animated gradient blobs */}
+      {/* Layered parallax background */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        {/* Parallax grid */}
         <motion.div
-          style={{ y: y1 }}
+          style={{ y: gridY }}
+          className="absolute inset-0 [background-image:linear-gradient(to_right,hsl(var(--border)/0.4)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.4)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)] opacity-60"
+        />
+        {/* Gradient blobs with mouse + scroll parallax */}
+        <motion.div
+          style={{ y: y1, x: mouse.x * 30 }}
           className="absolute -left-32 top-0 h-[520px] w-[520px] rounded-full bg-gradient-brand opacity-40 blur-3xl animate-blob"
         />
         <motion.div
-          style={{ y: y2 }}
+          style={{ y: y2, x: mouse.x * -40 }}
           className="absolute right-[-10%] top-32 h-[460px] w-[460px] rounded-full bg-gradient-cool opacity-40 blur-3xl animate-blob [animation-delay:-4s]"
         />
+        <motion.div
+          style={{ y: y3, x: mouse.x * 20 }}
+          className="absolute left-1/3 bottom-0 h-[420px] w-[420px] rounded-full bg-gradient-warm opacity-30 blur-3xl animate-blob [animation-delay:-8s]"
+        />
+
+        {/* Floating decorative orbs */}
+        <motion.div
+          animate={{ y: [0, -24, 0], x: [0, 12, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[8%] top-[28%] h-3 w-3 rounded-full bg-brand-pink shadow-[0_0_30px_hsl(var(--brand-pink))]"
+        />
+        <motion.div
+          animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[12%] top-[18%] h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_24px_hsl(var(--brand-cyan))]"
+        />
+        <motion.div
+          animate={{ y: [0, -16, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[42%] top-[12%] h-2.5 w-2.5 rounded-full bg-brand-yellow shadow-[0_0_24px_hsl(var(--brand-yellow))]"
+        />
+
         <div className="absolute inset-0 grain opacity-50" />
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pt-24">
+      <motion.div
+        style={{ y: contentY, opacity: heroOpacity, scale: heroScale }}
+        className="mx-auto grid max-w-7xl gap-12 px-6 pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pt-24"
+      >
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -137,19 +189,22 @@ function Hero() {
         </div>
 
         {/* Floating dashboard preview */}
-        <FloatingDashboard />
-      </div>
+        <FloatingDashboard mouseX={mouse.x} mouseY={mouse.y} />
+      </motion.div>
     </section>
   );
 }
 
-function FloatingDashboard() {
+function FloatingDashboard({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, rotate: -2 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="relative"
+      style={{
+        transform: `perspective(1200px) rotateY(${mouseX * 6}deg) rotateX(${mouseY * -6}deg)`,
+      }}
+      className="relative transition-transform duration-200 ease-out"
     >
       <div className="absolute -inset-4 rounded-[28px] bg-gradient-hero opacity-30 blur-2xl" />
 
@@ -224,6 +279,47 @@ function FloatingDashboard() {
           <div className="text-xs font-semibold">Disclosures complete</div>
           <div className="text-[10px] text-muted-foreground">Audit ready</div>
         </div>
+      </motion.div>
+
+      {/* Additional floating UI elements */}
+      <motion.div
+        animate={{ y: [0, -14, 0], rotate: [-2, 2, -2] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -left-10 bottom-24 hidden rounded-2xl border border-border bg-background px-4 py-3 shadow-card lg:flex items-center gap-2"
+      >
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-warm text-background">
+          <Calendar className="h-4 w-4" />
+        </span>
+        <div>
+          <div className="text-xs font-semibold">EMD due in 2d</div>
+          <div className="text-[10px] text-muted-foreground">1428 Maple Ave</div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 12, 0], rotate: [2, -1, 2] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -right-8 top-4 hidden rounded-2xl border border-border bg-background px-4 py-3 shadow-card lg:flex items-center gap-2"
+      >
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-hero text-background">
+          <TrendingUp className="h-4 w-4" />
+        </span>
+        <div>
+          <div className="text-xs font-semibold">On-time rate 98%</div>
+          <div className="text-[10px] text-muted-foreground">Last 30 days</div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute right-8 -bottom-6 hidden rounded-full border border-border bg-background px-3 py-2 shadow-card md:flex items-center gap-2"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-cyan opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-cyan" />
+        </span>
+        <span className="text-xs font-semibold">24 active deals</span>
       </motion.div>
     </motion.div>
   );
