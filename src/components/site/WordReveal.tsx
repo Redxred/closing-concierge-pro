@@ -11,7 +11,6 @@ export function WordReveal({
   delay?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useIn the inView from useInView
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const words = text.split(" ");
 
@@ -25,7 +24,7 @@ export function WordReveal({
           transition={{
             duration: 0.5,
             delay: delay + i * 0.04,
-            ease: [0.16, 1, 0.3, 0] as const,
+            ease: [0.16, 1, 0.3, 1] as const,
           }}
           className="inline-block mr-[0.25em]"
         >
