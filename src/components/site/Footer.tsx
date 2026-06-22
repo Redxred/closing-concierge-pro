@@ -1,6 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
+import { Twitter, Linkedin, Github, Mail } from "lucide-react";
 import logoAsset from "@/assets/yaytrack-logo.png";
+
+const socials = [
+  { href: "https://twitter.com", label: "Twitter", Icon: Twitter },
+  { href: "https://linkedin.com", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://github.com", label: "GitHub", Icon: Github },
+  { href: "mailto:hello@yaytrack.com", label: "Email", Icon: Mail },
+];
 
 export function Footer() {
   return (
@@ -48,6 +56,49 @@ export function Footer() {
           <p className="mt-4 max-w-xs text-sm text-background/60">
             Operational Capacity as a Service. Real humans, smart software — coordinating every real estate transaction from contract to close.
           </p>
+          <motion.ul
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+            }}
+            className="mt-6 flex items-center gap-3"
+            aria-label="Social links"
+          >
+            {socials.map(({ href, label, Icon }) => (
+              <motion.li
+                key={label}
+                variants={{
+                  hidden: { opacity: 0, y: 12, scale: 0.85 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                  },
+                }}
+              >
+                <motion.a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={label}
+                  whileHover={{ y: -3, scale: 1.08 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 18 }}
+                  className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-background/15 bg-background/5 text-background/70 transition-colors duration-300 hover:border-background/40 hover:text-background"
+                >
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-full bg-gradient-brand opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
+                  />
+                  <Icon className="relative h-4 w-4" strokeWidth={2} />
+                </motion.a>
+              </motion.li>
+            ))}
+          </motion.ul>
         </motion.div>
 
         {[
