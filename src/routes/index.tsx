@@ -425,23 +425,23 @@ function LogoMarquee() {
 const pillars = [
   {
     icon: Workflow,
-    title: "Real Execution",
+    title: "⚙️ Real Execution",
     body:
-      "We don’t just alert you to problems — we actively solve them and coordinate paperwork on your behalf.",
+      "Our team handles the 180+ administrative tasks per transaction — so the file moves without you running it.",
     tint: "bg-gradient-brand",
   },
   {
     icon: Eye,
-    title: "Real Visibility",
+    title: "👁️ Real Visibility",
     body:
-      "Check the exact status of any transaction instantly. No status emails. No back-and-forth phone calls.",
+      "Log in anytime to see exactly where your file stands — status, milestones, missing items, next steps.",
     tint: "bg-gradient-cool",
   },
   {
     icon: ShieldCheck,
-    title: "Real Control",
+    title: "🛡️ Real Control",
     body:
-      "Standardized systems keep your agents, team, and entire brokerage perfectly compliant and organized.",
+      "Compliance-aware coordination with clear process boundaries — structured, accountable, and never overstepping licensed activities.",
     tint: "bg-gradient-warm",
   },
 ];
@@ -452,13 +452,20 @@ function Pillars() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">The YayTrack difference</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">More than transaction coordination</span>
             <WordReveal
-              text="Not software. Not a VA. Execution."
+              text="YayTrack is the execution layer behind a more controlled real estate operation."
               className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl"
             />
             <p className="mt-4 text-lg text-muted-foreground">
-              We’re a process-driven, tech-enabled transaction execution partner — built around three pillars.
+              YayTrack is a tech-enabled transaction execution partner for real estate agents, teams,
+              and brokerages. We combine specialized human follow-through with real-time visibility,
+              so every deal moves forward with more structure, more clarity, and less friction. You
+              hand off the transaction, we run the process behind the scenes, and you stay informed
+              without having to become the project manager of the file.
+            </p>
+            <p className="mt-4 text-sm font-semibold text-foreground">
+              A modern operational partner — not just another coordinator, assistant, or dashboard.
             </p>
           </div>
         </Reveal>
@@ -706,18 +713,20 @@ function CTA() {
             <div className="relative grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-center">
               <div>
                 <h2 className="font-display text-4xl font-bold md:text-5xl">
-                  Hand off the chaos. <br /> <span className="text-gradient-hero">Keep the commission.</span>
+                  Bring more control to your transactions — <br /> <span className="text-gradient-hero">without adding more to your plate.</span>
                 </h2>
                 <p className="mt-4 max-w-lg text-background/70">
-                  Submit your next contract and watch YayTrack run it to the closing table.
+                  YayTrack helps real estate agents, teams, and brokerages move deals forward with
+                  more structure, more visibility, and less operational friction. Less chaos. Less
+                  follow-up. More confidence from contract to close.
                 </p>
               </div>
               <div className="flex flex-col gap-3 md:items-end">
                 <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-background px-7 py-4 text-sm font-bold text-foreground shadow-card transition-transform hover:scale-105">
-                  Start your first deal <ArrowRight className="h-4 w-4" />
+                  Submit Your First Deal <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/pricing" className="inline-flex items-center justify-center gap-2 rounded-full border border-background/20 px-7 py-4 text-sm font-semibold text-background hover:bg-background/10">
-                  See pricing <Gauge className="h-4 w-4" />
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-full border border-background/20 px-7 py-4 text-sm font-semibold text-background hover:bg-background/10">
+                  Schedule a Quick Intro <Calendar className="h-4 w-4" />
                 </Link>
               </div>
             </div>
