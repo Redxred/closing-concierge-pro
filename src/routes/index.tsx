@@ -27,6 +27,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { AlertTriangle, Building2, HelpCircle, UserCheck } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { WordReveal } from "@/components/site/WordReveal";
@@ -56,16 +57,31 @@ function Index() {
       <Hero />
       <LogoMarquee />
       <LazySection minHeight={520}>
+        <PainSection />
+      </LazySection>
+      <LazySection minHeight={520}>
         <Pillars />
       </LazySection>
       <LazySection minHeight={760}>
         <DashboardSection />
+      </LazySection>
+      <LazySection minHeight={620}>
+        <HowItWorksSection />
       </LazySection>
       <LazySection minHeight={320}>
         <Stats />
       </LazySection>
       <LazySection minHeight={560}>
         <ServicesPreview />
+      </LazySection>
+      <LazySection minHeight={560}>
+        <WhoItsForSection />
+      </LazySection>
+      <LazySection minHeight={520}>
+        <TeamSection />
+      </LazySection>
+      <LazySection minHeight={620}>
+        <FAQSection />
       </LazySection>
       <LazySection minHeight={620}>
         <OnboardDemo />
