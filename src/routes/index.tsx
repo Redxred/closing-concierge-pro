@@ -200,7 +200,7 @@ function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-pink" />
-            Operational Capacity as a Service
+            Tech-Enabled Operational Certainty for Real Estate Agents
           </motion.div>
 
           <motion.h1
@@ -209,9 +209,8 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="mt-6 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl"
           >
-            One platform to run{" "}
-            <span className="text-gradient-hero animate-gradient">every transaction</span>{" "}
-            on autopilot.
+            Submit the deal. Stay focused on selling.{" "}
+            <span className="text-gradient-hero animate-gradient">We run the operation.</span>
           </motion.h1>
 
           <motion.p
@@ -220,8 +219,9 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl"
           >
-            A single deal has 180–300 moving parts. YayTrack’s human coordinators plus smart software
-            run them all — so you focus on what you do best: selling.
+            YayTrack is your transaction execution partner for Maryland real estate deals — combining
+            expert follow-through, real-time visibility, and compliance-aware process control so you
+            can move from contract to close with less friction, less anxiety, and more confidence.
           </motion.p>
 
           <motion.div
@@ -234,14 +234,14 @@ function Hero() {
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-semibold text-background shadow-card transition-transform hover:scale-105 active:scale-95"
             >
-              Submit your first contract
+              Submit Your First Deal
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/how-it-works"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-6 py-3.5 text-sm font-semibold backdrop-blur hover:bg-background"
             >
-              See how it works
+              See How It Works
             </Link>
           </motion.div>
 
@@ -251,9 +251,9 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
           >
-            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Pay per transaction</span>
-            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Real-time dashboard</span>
-            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Audit-ready files</span>
+            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Fast handoff</span>
+            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Clear status</span>
+            <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> No project-managing required</span>
           </motion.div>
         </div>
 
