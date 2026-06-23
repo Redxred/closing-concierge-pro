@@ -113,6 +113,8 @@ function Hero() {
 
   useEffect(() => {
     if (reduceMotion) return;
+    // Skip mouse parallax on touch / coarse-pointer devices — no hover, just CPU cost.
+    if (typeof window !== "undefined" && window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
     let raf = 0;
     let nx = 0;
     let ny = 0;
