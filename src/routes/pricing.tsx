@@ -1,17 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "motion/react";
+import { motion } from "motion/react";
 import {
   Check,
-  LayoutDashboard,
   Shield,
-  Users,
-  Zap,
-  Building2,
-  FileCheck,
-  Headphones,
-  Sparkles,
   ArrowRight,
+  Sparkles,
+  Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -19,195 +13,71 @@ import { Button } from "@/components/ui/button";
 
 /* ──────────── data ──────────── */
 
-const plans = [
+type Plan = {
+  name: string;
+  description: string;
+  lines: { label: string; value: string }[];
+  total: { label: string; value: string };
+  buttonText: string;
+  buttonVariant: "default" | "outline";
+  popular?: boolean;
+};
+
+const plans: Plan[] = [
   {
-    name: "Starter",
+    name: "Single Side",
     description:
-      "Perfect for solo agents closing their first few deals each month.",
-    pricePerDeal: 295,
-    priceMonthly: 0,
-    priceYearly: 0,
+      "Represent one side of the transaction with end-to-end coordination.",
+    lines: [
+      { label: "Submit Fee", value: "$75" },
+      { label: "Closing Fee", value: "$275" },
+    ],
+    total: { label: "per transaction", value: "$350" },
     buttonText: "Start a deal",
-    buttonVariant: "outline" as const,
-    features: [
-      { text: "Full contract-to-close coordination", icon: FileCheck },
-      { text: "Real-time deal dashboard", icon: LayoutDashboard },
-      { text: "Compliance & disclosure checks", icon: Shield },
-      { text: "Email + SMS support", icon: Headphones },
-    ],
-    includes: [
-      "What's included:",
-      "Unlimited client updates",
-      "Audit-ready closing folder",
-      "Document collection & review",
-      "Deadline tracking & alerts",
-      "Cancel anytime",
-    ],
-  },
-  {
-    name: "Team",
-    description:
-      "Best for growing teams with 5+ active deals per month.",
-    pricePerDeal: 245,
-    priceMonthly: 0,
-    priceYearly: 0,
-    buttonText: "Talk to sales",
-    buttonVariant: "default" as const,
+    buttonVariant: "default",
     popular: true,
-    features: [
-      { text: "Everything in Starter", icon: Check },
-      { text: "Team roll-up dashboard", icon: LayoutDashboard },
-      { text: "Branded client updates", icon: Sparkles },
-      { text: "Priority coordinator pool", icon: Zap },
-    ],
-    includes: [
-      "Everything in Starter, plus:",
-      "Multi-agent pipeline view",
-      "Custom branding on comms",
-      "Faster turnaround times",
-      "Dedicated account check-ins",
-      "Volume-based discounts",
-    ],
   },
   {
-    name: "Brokerage",
+    name: "Double Side",
     description:
-      "Custom volume pricing for brokerages and large production teams.",
-    pricePerDeal: 0,
-    priceMonthly: 0,
-    priceYearly: 0,
-    buttonText: "Request quote",
-    buttonVariant: "outline" as const,
-    features: [
-      { text: "Everything in Team", icon: Check },
-      { text: "Brokerage compliance audit", icon: Shield },
-      { text: "SSO & role permissions", icon: Building2 },
-      { text: "Dedicated success lead", icon: Users },
+      "Both sides of the deal coordinated under one streamlined file.",
+    lines: [
+      { label: "Submit Fee", value: "$145" },
+      { label: "Closing Fee", value: "$495" },
     ],
-    includes: [
-      "Everything in Team, plus:",
-      "Custom SOP integration",
-      "White-label options",
-      "Executive reporting",
-      "API access",
-      "SLA guarantees",
+    total: { label: "per transaction", value: "$640" },
+    buttonText: "Start a deal",
+    buttonVariant: "outline",
+  },
+  {
+    name: "Listing Add-On",
+    description:
+      "Add full listing coordination to any transaction.",
+    lines: [
+      { label: "Flat Fee", value: "$185" },
     ],
+    total: { label: "add-on, flat fee", value: "$185" },
+    buttonText: "Add listing support",
+    buttonVariant: "outline",
   },
 ];
-
-/* ──────────── animated price counter ──────────── */
-
-function AnimatedPrice({ value, prefix = "$" }: { value: number; prefix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = { current: 0 };
-    const duration = 800;
-    const start = performance.now();
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      controls.current = Math.round(eased * value);
-      setDisplay(controls.current);
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [inView, value]);
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {prefix}
-      {display.toLocaleString()}
-    </span>
-  );
-}
-
-/* ──────────── toggle switch ──────────── */
-
-const PricingSwitch = ({
-  onSwitch,
-  className,
-}: {
-  onSwitch: (value: string) => void;
-  className?: string;
-}) => {
-  const [selected, setSelected] = useState("0");
-
-  const handleSwitch = (value: string) => {
-    setSelected(value);
-    onSwitch(value);
-  };
-
-  return (
-    <div
-      className={cn(
-        "relative flex h-14 w-fit items-center rounded-2xl border border-border bg-muted p-1.5 shadow-inner",
-        className
-      )}
-    >
-      <motion.div
-        layout
-        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-        className={cn(
-          "absolute h-[calc(100%-12px)] rounded-xl bg-gradient-brand shadow-md",
-          selected === "0" ? "left-1.5 w-[148px] sm:w-[168px]" : "left-[calc(100%-148px+1.5px)] w-[148px] sm:left-[calc(100%-168px+1.5px)] sm:w-[168px]"
-        )}
-      />
-      <button
-        onClick={() => handleSwitch("0")}
-        className={cn(
-          "relative z-10 h-full rounded-xl px-5 py-2 text-sm font-semibold transition-colors sm:px-7 sm:text-base",
-          selected === "0"
-            ? "text-white"
-            : "text-muted-foreground hover:text-foreground"
-        )}
-      >
-        Per Deal
-      </button>
-      <button
-        onClick={() => handleSwitch("1")}
-        className={cn(
-          "relative z-10 flex h-full items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold transition-colors sm:px-7 sm:text-base",
-          selected === "1"
-            ? "text-white"
-            : "text-muted-foreground hover:text-foreground"
-        )}
-      >
-        Monthly Bundle
-        <span
-          className={cn(
-            "rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-            selected === "1"
-              ? "bg-white/20 text-white"
-              : "bg-brand-pink/10 text-brand-pink"
-          )}
-        >
-          Save 15%
-        </span>
-      </button>
-    </div>
-  );
-};
 
 /* ──────────── route ──────────── */
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Pay per transaction with YayTrack" },
+      { title: "Pricing — Simple pricing. Clear value. | YayTrack" },
       {
         name: "description",
         content:
-          "No retainers. No surprise fees. YayTrack charges per active transaction — you pay when you have deals.",
+          "Start with one deal and scale when the volume grows. Transparent per-transaction pricing for agents, teams, and brokerages.",
       },
       { property: "og:title", content: "YayTrack Pricing" },
       {
         property: "og:description",
-        content: "Per-transaction pricing built for agents, teams, and brokerages.",
+        content:
+          "Single Side $350, Double Side $640, Listing Add-On $185. Fall-through guarantee included.",
       },
     ],
   }),
@@ -215,13 +85,9 @@ export const Route = createFileRoute("/pricing")({
 });
 
 function PricingPage() {
-  const [isMonthly, setIsMonthly] = useState(false);
-
   const containerVariants = {
     hidden: {},
-    show: {
-      transition: { staggerChildren: 0.12 },
-    },
+    show: { transition: { staggerChildren: 0.12 } },
   };
 
   const itemVariants = {
@@ -237,7 +103,7 @@ function PricingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-20">
+      <section className="relative overflow-hidden pt-32 pb-16">
         <div
           aria-hidden
           className="absolute -top-32 left-1/2 -z-10 h-[420px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-hero opacity-25 blur-3xl"
@@ -249,16 +115,18 @@ function PricingPage() {
             transition={{ duration: 0.5 }}
             className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-brand-pink"
           >
-            Pricing
+            Simple pricing. Clear value.
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 font-display text-5xl font-bold tracking-tight md:text-7xl"
+            className="mt-5 font-display text-5xl font-bold tracking-tight md:text-6xl"
           >
-            We&apos;ve got a plan{" "}
-            <span className="text-gradient-hero">perfect for you</span>
+            Start with one deal.{" "}
+            <span className="text-gradient-hero">
+              Scale when the volume grows.
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -266,23 +134,16 @@ function PricingPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground"
           >
-            Trusted by top-producing agents. Explore which option is right for
-            your business — no setup fees, no monthly minimums.
+            YayTrack is designed to make it easy to get started without
+            committing to internal overhead too early. Our pricing model gives
+            individual agents a simple entry point, while still supporting teams
+            and brokerages that need a more scalable operational structure.
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-10 flex justify-center"
-          >
-            <PricingSwitch onSwitch={(v) => setIsMonthly(v === "1")} />
-          </motion.div>
         </div>
       </section>
 
-      {/* Cards */}
-      <section className="pb-24">
+      {/* Pricing Cards */}
+      <section className="pb-16">
         <motion.div
           className="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-3"
           variants={containerVariants}
@@ -290,7 +151,7 @@ function PricingPage() {
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
         >
-          {plans.map((plan, index) => (
+          {plans.map((plan) => (
             <motion.div key={plan.name} variants={itemVariants}>
               <Card
                 className={cn(
@@ -302,7 +163,8 @@ function PricingPage() {
               >
                 {plan.popular && (
                   <div className="absolute right-5 top-5">
-                    <span className="rounded-full bg-gradient-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                      <Sparkles className="h-3 w-3" />
                       Most Popular
                     </span>
                   </div>
@@ -315,44 +177,39 @@ function PricingPage() {
                   <p className="mt-1 text-sm text-muted-foreground">
                     {plan.description}
                   </p>
-
-                  <div className="mt-6 flex items-baseline gap-1">
-                    <AnimatePresence mode="wait">
-                      {plan.pricePerDeal > 0 ? (
-                        <motion.div
-                          key={isMonthly ? "monthly" : "perdeal"}
-                          initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-                          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                          exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-                          transition={{ duration: 0.35 }}
-                          className="font-display text-5xl font-bold"
-                        >
-                          {isMonthly ? (
-                            <>
-                              <AnimatedPrice value={Math.round(plan.pricePerDeal * 4.25)} />
-                              <span className="ml-1 text-lg font-medium text-muted-foreground">
-                                /mo
-                              </span>
-                            </>
-                          ) : (
-                            <>
-                              <AnimatedPrice value={plan.pricePerDeal} />
-                              <span className="ml-1 text-lg font-medium text-muted-foreground">
-                                /deal
-                              </span>
-                            </>
-                          )}
-                        </motion.div>
-                      ) : (
-                        <span className="font-display text-4xl font-bold">
-                          Custom
-                        </span>
-                      )}
-                    </AnimatePresence>
-                  </div>
                 </CardHeader>
 
                 <CardContent className="flex flex-col gap-6 pb-8">
+                  <div className="space-y-3 rounded-2xl border border-border/70 bg-muted/40 p-5">
+                    {plan.lines.map((line) => (
+                      <div
+                        key={line.label}
+                        className="flex items-center justify-between text-sm"
+                      >
+                        <span className="text-muted-foreground">
+                          {line.label}
+                        </span>
+                        <span className="font-semibold tabular-nums">
+                          {line.value}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="my-2 h-px bg-border" />
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                        Total
+                      </span>
+                      <div className="text-right">
+                        <div className="font-display text-3xl font-bold tabular-nums">
+                          {plan.total.value}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {plan.total.label}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <Link to="/contact" className="w-full">
                     <Button
                       variant={plan.buttonVariant}
@@ -367,32 +224,6 @@ function PricingPage() {
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   </Link>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <div className="h-px flex-1 bg-border" />
-                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                        Features
-                      </span>
-                      <div className="h-px flex-1 bg-border" />
-                    </div>
-
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      {plan.includes[0]}
-                    </p>
-
-                    <ul className="space-y-3">
-                      {plan.includes.slice(1).map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-start gap-2.5 text-sm"
-                        >
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-pink" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -400,34 +231,96 @@ function PricingPage() {
         </motion.div>
       </section>
 
-      {/* All plans include */}
-      <section className="pb-28">
+      {/* Teams & Brokerages banner */}
+      <section className="pb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
+          className="mx-auto max-w-6xl px-6"
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-brand p-8 text-white shadow-glow md:p-12">
+            <div
+              aria-hidden
+              className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"
+            />
+            <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
+              <div>
+                <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider backdrop-blur">
+                  <Building2 className="h-3.5 w-3.5" />
+                  Teams & Brokerages
+                </div>
+                <h2 className="font-display text-2xl font-bold md:text-3xl">
+                  Need more ongoing operational support?
+                </h2>
+                <p className="mt-2 max-w-2xl text-white/90">
+                  YayTrack supports custom plans built around transaction
+                  volume, team structure, and operational complexity.
+                </p>
+              </div>
+              <Link to="/contact">
+                <Button
+                  size="lg"
+                  className="rounded-full bg-white px-6 py-6 text-sm font-bold text-foreground hover:bg-white/90"
+                >
+                  Contact Us for a Custom Plan
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Fall-Through Guarantee */}
+      <section className="pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
           className="mx-auto max-w-4xl px-6"
         >
-          <div className="rounded-3xl border border-border bg-card p-10 text-center shadow-card">
-            <h2 className="font-display text-2xl font-bold">
-              All plans include
-            </h2>
-            <div className="mt-6 grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
-              {[
-                "No setup fees",
-                "No monthly minimums",
-                "Cancel anytime",
-                "Audit-ready closing folder",
-                "Real-time dashboard",
-                "Human coordinator on every file",
-              ].map((f) => (
-                <div key={f} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-brand-purple" />
-                  {f}
-                </div>
-              ))}
+          <div className="flex items-start gap-4 rounded-2xl border border-brand-pink/30 bg-brand-pink/5 p-6">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-brand text-white shadow-md">
+              <Shield className="h-6 w-6" />
             </div>
+            <div>
+              <h3 className="font-display text-lg font-bold">
+                Fall-Through Guarantee
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                If your deal falls through, the closing fee is completely
+                waived. You only pay the{" "}
+                <span className="font-semibold text-foreground">
+                  $75 intake fee
+                </span>{" "}
+                to cover file activation.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Closing line */}
+      <section className="pb-28">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-3xl px-6 text-center"
+        >
+          <p className="font-display text-xl font-semibold md:text-2xl">
+            Simple enough to start.{" "}
+            <span className="text-gradient-hero">
+              Flexible enough to grow with your business.
+            </span>
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <Check className="h-4 w-4 text-brand-purple" />
+            No setup fees · No monthly minimums · Cancel anytime
           </div>
         </motion.div>
       </section>
