@@ -15,10 +15,10 @@ export const Route = createFileRoute("/how-it-works")({
 });
 
 const steps = [
-  { icon: FileUp, title: "Submit your contract", body: "Upload an executed contract through the dashboard. Our system parses it instantly and a coordinator is assigned within the hour." },
-  { icon: Workflow, title: "We run the playbook", body: "Critical dates mapped, parties notified, contingencies clocked, disclosures requested. We become the operations hub for that deal." },
-  { icon: Eye, title: "You watch from above", body: "Open the dashboard any time to see status, blockers, and next actions. No status emails, no chase calls." },
-  { icon: Trophy, title: "Close clean", body: "We hand you a fully organized, audit-ready closing file. You collect the commission and move on to the next listing." },
+  { icon: FileUp, title: "Submit the deal", body: "Upload the executed contract and basic transaction details in minutes." },
+  { icon: Workflow, title: "We activate the file", body: "YayTrack reviews the paperwork, sets the workflow in motion, and begins operational follow-through." },
+  { icon: Eye, title: "Track without managing", body: "Log in anytime to view status, milestones, deadlines, and any requested missing items." },
+  { icon: Trophy, title: "Move to closing with confidence", body: "We keep the process moving while you stay focused on clients, pipeline, and closings." },
 ];
 
 function HowPage() {
