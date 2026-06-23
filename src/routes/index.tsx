@@ -736,3 +736,240 @@ function CTA() {
     </section>
   );
 }
+
+function PainSection() {
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal>
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-pink">
+            The real problem is not paperwork. It is operational chaos.
+          </span>
+          <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+            Every transaction pulls you away from <span className="text-gradient-hero">selling</span>.
+          </h2>
+          <div className="mt-6 space-y-5 text-lg text-muted-foreground">
+            <p>
+              Real estate agents are expected to do two jobs at the same time: generate business and
+              operate the file. That means prospecting, showing homes, and negotiating offers — while
+              also tracking signatures, reviewing documents, coordinating title and lender updates,
+              managing contingencies, and making sure no deadline slips through the cracks.
+            </p>
+            <p>
+              That is where the real pressure builds. Not just in the workload itself, but in the
+              constant mental interruption of wondering what is missing, what is late, who has not
+              responded, and whether something small could put the entire deal at risk.
+            </p>
+            <p>
+              When every transaction brings 180 to 300 moving pieces, the business starts to feel
+              reactive. More follow-up. More stress. More commission risk. Less room to actually stay
+              focused on selling.
+            </p>
+          </div>
+          <div className="mt-8 flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-card">
+            <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-brand-pink" />
+            <p className="text-base font-semibold text-foreground">
+              The issue is not that agents need another tool. The issue is that they need the operation
+              to feel under control.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const howSteps = [
+  { n: "01", t: "Submit the deal", b: "Upload the executed contract and basic transaction details in minutes." },
+  { n: "02", t: "We activate the file", b: "YayTrack reviews the paperwork, sets the workflow in motion, and begins operational follow-through." },
+  { n: "03", t: "Track without managing", b: "Log in anytime to view status, milestones, deadlines, and any requested missing items." },
+  { n: "04", t: "Move to closing with confidence", b: "We keep the process moving while you stay focused on clients, pipeline, and closings." },
+];
+
+function HowItWorksSection() {
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="max-w-3xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">How it works</span>
+            <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+              A simple handoff from <span className="text-gradient-hero">contract to close</span>.
+            </h2>
+            <p className="mt-5 text-lg text-muted-foreground">
+              YayTrack is designed to make the operational side of the transaction feel easy from the
+              start. Once you have an executed contract, the handoff is quick, clear, and structured.
+              You submit the deal, our team reviews the file, activates the process, and begins
+              coordinating the transaction behind the scenes. From there, you can track progress, see
+              what has been handled, and respond only when something specific is needed from you.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {howSteps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.08}>
+              <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-card transition-transform hover:-translate-y-1">
+                <div className="font-display text-5xl font-bold text-gradient-brand">{s.n}</div>
+                <h3 className="mt-4 font-display text-xl font-bold">{s.t}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
+          <p className="mt-10 text-center text-sm font-semibold text-muted-foreground">
+            Simple to start. Easy to follow. Built to keep the operation moving.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const audiences = [
+  { icon: UserCheck, t: "Productive solo agents", b: "For agents who are closing consistently and need operational relief without hiring in-house too early.", tint: "bg-gradient-brand" },
+  { icon: Users, t: "Small to mid-sized teams", b: "For team leads who need clearer oversight, better process consistency, and less chaos across active files.", tint: "bg-gradient-cool" },
+  { icon: Building2, t: "Boutique and growing brokerages", b: "For broker-owners who want stronger visibility, compliance-aware support, and a more scalable way to handle transaction volume.", tint: "bg-gradient-warm" },
+];
+
+function WhoItsForSection() {
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="max-w-3xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple">Who YayTrack is built for</span>
+            <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+              Built for real estate professionals who need more control{" "}
+              <span className="text-gradient-hero">without more internal overhead</span>.
+            </h2>
+            <p className="mt-5 text-lg text-muted-foreground">
+              YayTrack is designed for real estate businesses that are already moving deals and feeling
+              the weight of the operation behind them. It is especially valuable for agents who are
+              juggling active transactions while still trying to prospect, show homes, negotiate, and
+              keep clients informed — and for teams that need more structure, visibility, and
+              consistency as volume grows.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {audiences.map((a, i) => (
+            <Reveal key={a.t} delay={i * 0.1}>
+              <div className="h-full rounded-3xl border border-border bg-card p-8 shadow-card transition-transform hover:-translate-y-1">
+                <div className={`grid h-12 w-12 place-items-center rounded-2xl ${a.tint} text-background shadow-glow`}>
+                  <a.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-6 font-display text-xl font-bold">{a.t}</h3>
+                <p className="mt-3 text-muted-foreground">{a.b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
+          <p className="mt-10 text-center text-sm font-semibold text-muted-foreground">
+            If your business is growing faster than your operational capacity, YayTrack is built for that moment.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function TeamSection() {
+  const members = [
+    { name: "Operations Lead", role: "Transaction execution" },
+    { name: "Coordinator", role: "File activation & follow-through" },
+    { name: "Compliance Lead", role: "Process control" },
+    { name: "Product & Tech", role: "Visibility layer" },
+  ];
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="max-w-3xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">The team</span>
+            <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+              The people behind <span className="text-gradient-hero">the operation</span>.
+            </h2>
+            <p className="mt-5 text-lg text-muted-foreground">
+              A small, focused team building something serious for real estate professionals in the
+              DMV. We combine real estate knowledge, operational discipline, and technology to make
+              transaction coordination actually work.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {members.map((m, i) => (
+            <Reveal key={m.name} delay={i * 0.08}>
+              <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-card text-center">
+                <div className="mx-auto h-24 w-24 rounded-full bg-gradient-hero opacity-90" />
+                <h3 className="mt-5 font-display text-lg font-bold">{m.name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{m.role}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
+          <p className="mt-10 text-center text-sm font-semibold text-muted-foreground">
+            Real people. Real follow-through. Real results from contract to close.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const faqs = [
+  { q: "Is YayTrack just another transaction coordinator service?", a: "No. YayTrack is designed as a tech-enabled transaction execution partner — combining human follow-through with real-time visibility, so the file feels organized, active, and under control without forcing you to manage it yourself." },
+  { q: "Is YayTrack a software platform like Dotloop or Skyslope?", a: "No. YayTrack is not a self-serve platform where you do the work alone. It is an operational service supported by a visibility layer, so you can track progress without carrying the process yourself." },
+  { q: "Do I still have to manage the transaction?", a: "No. You submit the deal, YayTrack takes over the operational follow-through, and you step in only when something specific is needed from you." },
+  { q: "How is it different from hiring a virtual assistant?", a: "A VA typically provides hourly labor and still requires close supervision. YayTrack is built around process discipline, operational accountability, and structured follow-through — not just task support." },
+  { q: "Does YayTrack handle licensed real estate activities?", a: "No. YayTrack is built around administrative, operational, and coordination support. It does not negotiate contracts, provide legal advice, or perform any licensed activities that must remain with the agent or broker." },
+  { q: "How much visibility will I have into the file?", a: "You will have a clear view of status, milestones, missing items, and progress through the portal — without being forced into the role of project manager." },
+  { q: "Can my entire team or brokerage use YayTrack?", a: "Yes. YayTrack is built for productive solo agents first, but it is also designed to support growing teams and brokerages that need more structure, visibility, and operational consistency as volume increases." },
+];
+
+function FAQSection() {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section className="py-28">
+      <div className="mx-auto max-w-4xl px-6">
+        <Reveal>
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-pink">
+            Questions we know real estate professionals ask
+          </span>
+          <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+            Everything you need to know before <span className="text-gradient-hero">handing off your next file</span>.
+          </h2>
+          <p className="mt-5 text-lg text-muted-foreground">
+            YayTrack is built to make the operational side of the transaction easier to delegate,
+            easier to follow, and easier to trust. These are the most common questions agents, teams,
+            and brokerages ask before getting started.
+          </p>
+        </Reveal>
+        <div className="mt-12 divide-y divide-border rounded-3xl border border-border bg-card shadow-card">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={f.q}>
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full items-start justify-between gap-4 p-6 text-left"
+                >
+                  <span className="flex items-start gap-3">
+                    <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-blue" />
+                    <span className="font-display text-base font-bold md:text-lg">{f.q}</span>
+                  </span>
+                  <span className={`mt-0.5 text-xl font-bold transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
+                </button>
+                {isOpen && (
+                  <div className="px-6 pb-6 pl-14 text-muted-foreground">{f.a}</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
