@@ -152,19 +152,33 @@ function PricingPage() {
           viewport={{ once: true, margin: "-60px" }}
         >
           {plans.map((plan) => (
-            <motion.div key={plan.name} variants={itemVariants}>
+            <motion.div
+              key={plan.name}
+              variants={itemVariants}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+              className="group relative"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-hero opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-40"
+              />
               <Card
                 className={cn(
-                  "relative h-full overflow-hidden rounded-3xl border bg-card transition-shadow duration-300",
+                  "relative h-full overflow-hidden rounded-3xl border bg-card transition-all duration-300 group-hover:border-foreground/40 group-hover:shadow-glow",
                   plan.popular
                     ? "border-foreground/30 shadow-glow"
                     : "border-border shadow-card hover:shadow-lg"
                 )}
               >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-1000 group-hover:translate-x-full group-hover:opacity-100"
+                />
                 {plan.popular && (
                   <div className="absolute right-5 top-5">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                      <Sparkles className="h-3 w-3" />
+                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-brand px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">
+                      <Sparkles className="h-3 w-3 animate-pulse" />
                       Most Popular
                     </span>
                   </div>
@@ -200,7 +214,7 @@ function PricingPage() {
                         Total
                       </span>
                       <div className="text-right">
-                        <div className="font-display text-3xl font-bold tabular-nums">
+                        <div className="font-display text-3xl font-bold tabular-nums transition-transform duration-300 group-hover:scale-110 group-hover:text-gradient-hero">
                           {plan.total.value}
                         </div>
                         <div className="text-xs text-muted-foreground">
