@@ -238,3 +238,15 @@
     contain-intrinsic-size: 1px 800px;
   }
 }
+
+/* Respect reduced-motion: silence infinite/decorative animations and
+   transitions globally so the browser stops burning CPU on parallax,
+   marquees, and gradient loops for users who opt out. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
