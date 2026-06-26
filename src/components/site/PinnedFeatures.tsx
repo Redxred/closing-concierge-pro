@@ -105,10 +105,6 @@ function MockCard({ index, active }: { index: number; active: number }) {
 export function PinnedFeatures() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  // map progress 0..1 → step 0..2
-  const stepMV = useTransform(scrollYProgress, [0, 0.33, 0.66, 1], [0, 0, 1, 2]);
-  // active step (rounded) — read via useTransform string but we need integer; use motion subscribe pattern via state-free approach:
-  const active = useTransform(scrollYProgress, (v) => Math.min(2, Math.floor(v * 3)));
 
   return (
     <section ref={ref} className="relative h-[300vh]">
