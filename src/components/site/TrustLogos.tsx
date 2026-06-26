@@ -1,10 +1,12 @@
 import { motion, useReducedMotion } from "motion/react";
+import { useState } from "react";
 import { RollingCounter } from "@/components/site/RollingCounter";
 
 const logos = ["KW", "RE/MAX", "Compass", "eXp", "Coldwell Banker", "Century 21", "Sotheby's", "Berkshire Hathaway"];
 
 export function TrustLogos() {
   const reduced = useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const track = [...logos, ...logos];
 
   return (
@@ -16,21 +18,29 @@ export function TrustLogos() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-6 lg:grid-cols-[1fr_auto]">
-        <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-          <motion.div
-            className="flex w-max gap-12 whitespace-nowrap"
-            animate={reduced ? undefined : { x: ["0%", "-50%"] }}
-            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+        <div
+          className="group relative overflow-hidden"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div
+            className={`flex w-max gap-12 whitespace-nowrap ${reduced ? "" : "animate-marquee"} ${paused ? "marquee-paused" : ""}`}
           >
             {track.map((l, i) => (
               <span
                 key={`${l}-${i}`}
-                className="font-display text-lg font-semibold tracking-tight text-ink/35 transition-colors hover:text-accent-warm"
+                className="font-display text-lg font-semibold tracking-tight text-ink/35 transition-colors duration-300 hover:text-accent-warm"
               >
                 {l}
               </span>
             ))}
-          </motion.div>
+          </div>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
