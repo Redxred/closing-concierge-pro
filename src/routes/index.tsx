@@ -28,6 +28,7 @@ import {
   Users,
 } from "lucide-react";
 import { AlertTriangle, Building2, HelpCircle, UserCheck } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { WordReveal } from "@/components/site/WordReveal";
@@ -196,9 +197,9 @@ function Hero() {
       >
         <div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-pink" />
@@ -206,9 +207,9 @@ function Hero() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl"
           >
             Submit the deal. Stay focused on selling.{" "}
@@ -216,9 +217,9 @@ function Hero() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl"
           >
             YayTrack is your transaction execution partner for Maryland real estate deals — combining
@@ -227,9 +228,9 @@ function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
             <Link
@@ -248,9 +249,9 @@ function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
             className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
           >
             <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-brand-purple" /> Fast handoff</span>
@@ -262,6 +263,24 @@ function Hero() {
         {/* Floating dashboard preview */}
         <FloatingDashboard mx={mx} my={my} />
       </motion.div>
+
+      {/* Bouncing scroll indicator */}
+      <motion.a
+        href="#pillars"
+        aria-label="Scroll to next section"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+      >
+        <motion.span
+          animate={reduceMotion ? undefined : { y: [0, 10, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/70 text-foreground shadow-card backdrop-blur hover:bg-background"
+        >
+          <ChevronDown className="h-5 w-5" />
+        </motion.span>
+      </motion.a>
     </section>
   );
 }
