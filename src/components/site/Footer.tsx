@@ -19,9 +19,6 @@ export function Footer() {
   // and convert entrance reveals into instant, fully-visible states so the
   // footer still looks polished without any movement.
   const loop = prefersReducedMotion ? undefined : { repeat: Infinity, ease: "easeInOut" as const };
-  const fadeUp = prefersReducedMotion
-    ? { initial: false as const, animate: { opacity: 1, y: 0 } }
-    : undefined;
   return (
     <footer className="relative mt-32 overflow-hidden border-t border-border bg-brand-ink text-background">
       {/* Animated gradient top hairline */}
