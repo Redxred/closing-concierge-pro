@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Building2, Clock, FileCheck2, Quote, Sparkles, TrendingUp, Users } from "lucide-react";
+import { LazySection } from "@/components/site/LazySection";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -15,6 +16,14 @@ export const Route = createFileRoute("/stories")({
       {
         property: "og:description",
         content: "How brokerages and solo agents run their pipeline with YayTrack.",
+      },
+    ],
+    links: [
+      // Preload the LCP heading font weight so the hero paints in one frame.
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap",
       },
     ],
   }),
@@ -191,9 +200,15 @@ function StoriesGrid() {
   return (
     <section className="relative pb-24">
       <div className="mx-auto max-w-6xl space-y-8 px-6">
-        {stories.map((s, i) => (
-          <StoryCard key={s.agent} story={s} index={i} />
-        ))}
+        {stories.map((s, i) =>
+          i < 1 ? (
+            <StoryCard key={s.agent} story={s} index={i} />
+          ) : (
+            <LazySection key={s.agent} minHeight={420} rootMargin="600px 0px">
+              <StoryCard story={s} index={i} />
+            </LazySection>
+          ),
+        )}
       </div>
       <p className="mx-auto mt-12 max-w-3xl px-6 text-center text-xs text-ink/45">
         Names appear with permission. Metrics are agent-reported, rounded to ranges, and exclude transaction
@@ -214,12 +229,11 @@ function StoryCard({ story, index }: { story: Story; index: number }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
       className="group relative overflow-hidden rounded-[28px] border border-ink/10 bg-white p-8 shadow-soft transition-shadow hover:shadow-lift md:p-10"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "1px 480px" }}
     >
-      <motion.div
+      <div
         aria-hidden
         className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-accent-warm/8 blur-3xl"
-        animate={reduced ? undefined : { x: [0, -20, 0], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ duration: 9 + index, repeat: Infinity, ease: "easeInOut" }}
       />
       <div
         aria-hidden
