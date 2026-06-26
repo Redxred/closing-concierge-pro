@@ -28,6 +28,7 @@ import {
   Users,
 } from "lucide-react";
 import { AlertTriangle, Building2, HelpCircle, UserCheck } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { WordReveal } from "@/components/site/WordReveal";
