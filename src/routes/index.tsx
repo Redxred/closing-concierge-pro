@@ -22,6 +22,8 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { LazySection } from "@/components/site/LazySection";
 import { ScrollCue } from "@/components/site/ScrollCue";
 import { TrustLogos } from "@/components/site/TrustLogos";
+import { TrustBadges } from "@/components/site/TrustBadges";
+import { ServiceCommitments } from "@/components/site/ServiceCommitments";
 import { PinnedFeatures } from "@/components/site/PinnedFeatures";
 import { HowItWorksAuto } from "@/components/site/HowItWorksAuto";
 import { BeforeAfter } from "@/components/site/BeforeAfter";
@@ -69,6 +71,12 @@ function Index() {
       </LazySection>
       <LazySection minHeight={520}>
         <TestimonialsMarquee />
+      </LazySection>
+      <LazySection minHeight={420}>
+        <TrustBadges />
+      </LazySection>
+      <LazySection minHeight={520}>
+        <ServiceCommitments />
       </LazySection>
       <LazySection minHeight={420}>
         <PricingTeaser />
