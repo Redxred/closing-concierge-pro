@@ -229,12 +229,11 @@ function StoryCard({ story, index }: { story: Story; index: number }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
       className="group relative overflow-hidden rounded-[28px] border border-ink/10 bg-white p-8 shadow-soft transition-shadow hover:shadow-lift md:p-10"
+      style={{ contentVisibility: "auto", containIntrinsicSize: "1px 480px" }}
     >
-      <motion.div
+      <div
         aria-hidden
         className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-accent-warm/8 blur-3xl"
-        animate={reduced ? undefined : { x: [0, -20, 0], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ duration: 9 + index, repeat: Infinity, ease: "easeInOut" }}
       />
       <div
         aria-hidden
