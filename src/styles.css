@@ -242,6 +242,8 @@
   .bg-accent-warm { background-color: var(--accent-warm); }
   .bg-surface-soft { background-color: var(--surface-soft); }
   .text-ink { color: var(--ink); }
+  .bg-ink { background-color: var(--ink); }
+  .border-ink { border-color: var(--ink); }
   .tilt-3d { transform-style: preserve-3d; perspective: 1000px; }
 
   @keyframes bounce-cue {
