@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Twitter, Linkedin, Github, Mail, ArrowRight, Sparkles } from "lucide-react";
+import { useState } from "react";
 import logoAsset from "@/assets/yaytrack-logo.png";
 
 const socials = [
@@ -11,8 +12,22 @@ const socials = [
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
   return (
     <footer className="relative mt-32 overflow-hidden border-t border-border bg-brand-ink text-background">
+      {/* Animated gradient top hairline */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, #FF7A45, #C5D94A, #2D6B5E, transparent)",
+          backgroundSize: "200% 100%",
+        }}
+        animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
       {/* Animated ambient glows */}
       <motion.div
         aria-hidden
@@ -34,8 +49,79 @@ export function Footer() {
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         className="pointer-events-none absolute -bottom-32 left-1/4 h-64 w-64 rounded-full bg-gradient-cool opacity-15 blur-3xl"
       />
+      {/* subtle dotted grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+      />
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      {/* Newsletter / CTA band */}
+      <div className="relative mx-auto max-w-7xl px-6 pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative grid gap-8 overflow-hidden rounded-3xl border border-background/10 bg-background/[0.03] p-8 backdrop-blur md:grid-cols-[1.2fr_1fr] md:p-12"
+        >
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-warm/30 blur-3xl"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="relative">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-background/15 bg-background/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-background/70">
+              <Sparkles className="h-3 w-3" /> Closing brief
+            </div>
+            <h3 className="font-display text-3xl font-bold leading-tight md:text-4xl">
+              One smart email a week. Zero busywork.
+            </h3>
+            <p className="mt-3 max-w-md text-sm text-background/65">
+              Field notes on closings, contract automation, and what's saving agents real hours this month.
+            </p>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (email) setSent(true);
+            }}
+            className="relative flex flex-col items-stretch justify-center gap-3"
+          >
+            <div className="flex items-center gap-2 rounded-full border border-background/15 bg-background/5 p-1.5 pl-5 transition-colors focus-within:border-background/40">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@brokerage.com"
+                className="flex-1 bg-transparent text-sm text-background placeholder:text-background/40 outline-none"
+              />
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="group inline-flex items-center gap-1.5 rounded-full bg-accent-warm px-4 py-2 text-xs font-semibold text-white shadow-lift"
+              >
+                {sent ? "Subscribed" : "Subscribe"}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </motion.button>
+            </div>
+            <p className="pl-5 text-[11px] text-background/45">
+              No spam. Unsubscribe in one click.
+            </p>
+          </form>
+        </motion.div>
+      </div>
+
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,7 +140,7 @@ export function Footer() {
             />
           </Link>
           <p className="mt-4 max-w-xs text-sm text-background/60">
-            Operational Capacity as a Service. Real humans, smart software — coordinating every real estate transaction from contract to close.
+            Upload the contract. YayTrack builds the timeline, files the emails, and tells you what needs you today.
           </p>
           <motion.ul
             initial="hidden"
