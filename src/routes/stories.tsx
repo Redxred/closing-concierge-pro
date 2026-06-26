@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Building2, Clock, FileCheck2, Quote, Sparkles, TrendingUp, Users } from "lucide-react";
+import { LazySection } from "@/components/site/LazySection";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -15,6 +16,14 @@ export const Route = createFileRoute("/stories")({
       {
         property: "og:description",
         content: "How brokerages and solo agents run their pipeline with YayTrack.",
+      },
+    ],
+    links: [
+      // Preload the LCP heading font weight so the hero paints in one frame.
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap",
       },
     ],
   }),
@@ -191,9 +200,15 @@ function StoriesGrid() {
   return (
     <section className="relative pb-24">
       <div className="mx-auto max-w-6xl space-y-8 px-6">
-        {stories.map((s, i) => (
-          <StoryCard key={s.agent} story={s} index={i} />
-        ))}
+        {stories.map((s, i) =>
+          i < 1 ? (
+            <StoryCard key={s.agent} story={s} index={i} />
+          ) : (
+            <LazySection key={s.agent} minHeight={420} rootMargin="600px 0px">
+              <StoryCard story={s} index={i} />
+            </LazySection>
+          ),
+        )}
       </div>
       <p className="mx-auto mt-12 max-w-3xl px-6 text-center text-xs text-ink/45">
         Names appear with permission. Metrics are agent-reported, rounded to ranges, and exclude transaction
