@@ -1,26 +1,28 @@
-import { Suspense, lazy, useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, RoundedBox, Environment, ContactShadows } from "@react-three/drei";
 import { useReducedMotion } from "motion/react";
-import type { Mesh } from "three";
+import { MathUtils, type Group } from "three";
 
 function ContractCard({ idle }: { idle: boolean }) {
-  const ref = useRef<Mesh>(null);
-  useFrame((state) => {
+  const ref = useRef<Group>(null);
+  useFrame((state, delta) => {
     if (!ref.current || !idle) return;
     const { x, y } = state.pointer;
-    ref.current.rotation.y += (x * 0.4 - ref.current.rotation.y) * 0.05;
-    ref.current.rotation.x += (-y * 0.3 - ref.current.rotation.x) * 0.05;
+    // frame-rate independent damping for buttery smoothness
+    const t = 1 - Math.exp(-delta * 6);
+    ref.current.rotation.y = MathUtils.lerp(ref.current.rotation.y, x * 0.35, t);
+    ref.current.rotation.x = MathUtils.lerp(ref.current.rotation.x, -y * 0.25, t);
   });
   return (
-    <Float speed={idle ? 1.4 : 0} rotationIntensity={idle ? 0.4 : 0} floatIntensity={idle ? 0.8 : 0}>
-      <group>
+    <Float speed={idle ? 1.1 : 0} rotationIntensity={idle ? 0.25 : 0} floatIntensity={idle ? 0.6 : 0}>
+      <group ref={ref}>
         {/* back card */}
         <RoundedBox args={[2.3, 3.1, 0.08]} radius={0.12} smoothness={6} position={[-0.35, -0.2, -0.2]}>
           <meshStandardMaterial color="#FFE9DD" roughness={0.4} metalness={0.05} />
         </RoundedBox>
         {/* front card */}
-        <RoundedBox ref={ref} args={[2.4, 3.2, 0.1]} radius={0.14} smoothness={6}>
+        <RoundedBox args={[2.4, 3.2, 0.1]} radius={0.14} smoothness={6}>
           <meshStandardMaterial color="#FFFFFF" roughness={0.35} metalness={0.08} />
         </RoundedBox>
         {/* accent stripe */}
@@ -60,8 +62,8 @@ export function Hero3D() {
       <Suspense fallback={null}>
         <Canvas
           camera={{ position: [0, 0, 6], fov: 35 }}
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: true }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
           style={{ background: "transparent" }}
         >
           <Scene />
