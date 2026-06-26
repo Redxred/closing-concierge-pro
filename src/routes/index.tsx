@@ -201,8 +201,20 @@ function HeroFallback() {
 /* ---------- PROBLEM ---------- */
 function ProblemSection() {
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-3xl px-6 text-center">
+    <section className="relative overflow-hidden py-24">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-accent-warm/10 blur-3xl"
+        animate={{ x: [0, 40, 0], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 top-1/3 h-72 w-72 rounded-full bg-[#2D6B5E]/10 blur-3xl"
+        animate={{ x: [0, -40, 0], opacity: [0.35, 0.6, 0.35] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div className="relative mx-auto max-w-3xl px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
