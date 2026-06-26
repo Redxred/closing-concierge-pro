@@ -135,10 +135,15 @@ function FeatureCopy({
   index: number;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
+  const clamp = (n: number) => Math.max(0, Math.min(1, n));
   const start = index / 3;
   const end = (index + 1) / 3;
-  const opacity = useTransform(progress, [start - 0.05, start + 0.05, end - 0.05, end + 0.05], [0, 1, 1, 0]);
-  const y = useTransform(progress, [start, end], [20, -20]);
+  const opacity = useTransform(
+    progress,
+    [clamp(start - 0.05), clamp(start + 0.05), clamp(end - 0.05), clamp(end + 0.05)],
+    [0, 1, 1, 0],
+  );
+  const y = useTransform(progress, [clamp(start), clamp(end)], [20, -20]);
   const Icon = feature.icon;
   return (
     <motion.div style={{ opacity, y }} className="absolute max-w-lg">
@@ -163,10 +168,19 @@ function FeatureMockStack({ progress }: { progress: ReturnType<typeof useScroll>
 }
 
 function MockAt({ index, progress }: { index: number; progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const clamp = (n: number) => Math.max(0, Math.min(1, n));
   const start = index / 3;
   const end = (index + 1) / 3;
-  const opacity = useTransform(progress, [start - 0.05, start + 0.08, end - 0.05, end + 0.05], [0, 1, 1, 0]);
-  const scale = useTransform(progress, [start, start + 0.15, end - 0.05, end + 0.05], [0.85, 1, 1, 0.9]);
+  const opacity = useTransform(
+    progress,
+    [clamp(start - 0.05), clamp(start + 0.08), clamp(end - 0.05), clamp(end + 0.05)],
+    [0, 1, 1, 0],
+  );
+  const scale = useTransform(
+    progress,
+    [clamp(start), clamp(start + 0.15), clamp(end - 0.05), clamp(end + 0.05)],
+    [0.85, 1, 1, 0.9],
+  );
   return (
     <motion.div style={{ opacity, scale }} className="absolute inset-0">
       <MockCard index={index} active={index} />
