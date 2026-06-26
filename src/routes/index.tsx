@@ -383,29 +383,77 @@ function FinalCTA() {
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
           className="relative overflow-hidden rounded-[32px] bg-ink p-12 text-center text-white shadow-lift md:p-16"
         >
-          <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-accent-warm/30 blur-3xl" />
-          <h2 className="relative font-display text-4xl font-bold md:text-5xl">
+          {/* animated ambient glows */}
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-accent-warm/40 blur-3xl"
+            animate={{ x: [0, 40, 0], y: [0, 20, 0], opacity: [0.45, 0.7, 0.45] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-[#C5D94A]/25 blur-3xl"
+            animate={{ x: [0, -30, 0], y: [0, -20, 0], opacity: [0.3, 0.55, 0.3] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* subtle grid */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)",
+              backgroundSize: "40px 40px",
+            }}
+          />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative font-display text-4xl font-bold md:text-5xl"
+          >
             Run your first deal through YayTrack — free.
-          </h2>
-          <p className="relative mx-auto mt-4 max-w-xl text-white/70">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto mt-4 max-w-xl text-white/70"
+          >
             See your timeline build itself in under a minute.
-          </p>
-          <div className="relative mt-8">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-8"
+          >
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-accent-warm px-8 py-4 text-base font-semibold text-white shadow-lift transition-transform hover:scale-[1.02]"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-accent-warm px-8 py-4 text-base font-semibold text-white shadow-lift transition-transform hover:scale-[1.03]"
             >
-              Start Free <ArrowRight className="h-4 w-4" />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="relative">Start Free</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
-          <div className="relative mx-auto mt-10 max-w-md rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-sm text-white/75">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto mt-10 max-w-md rounded-2xl border border-white/15 bg-white/[0.06] p-5 text-left text-sm text-white/80 backdrop-blur-sm"
+          >
             <div className="font-semibold text-white">A note from the founder —</div>
             <p className="mt-2 leading-relaxed">
               I built YayTrack because I watched my best agents drown in paperwork they shouldn't have to do. Try it free
               on your next contract. If it doesn't save you hours, just email me.
             </p>
-            <a href="mailto:team@yaytrack.com" className="mt-3 inline-block text-accent-warm">team@yaytrack.com</a>
-          </div>
+            <a href="mailto:team@yaytrack.com" className="mt-3 inline-block text-accent-warm hover:underline">team@yaytrack.com</a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
