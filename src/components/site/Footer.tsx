@@ -250,6 +250,26 @@ export function Footer() {
         <div>© {new Date().getFullYear()} YayTrack Systems. Professional administrative services.</div>
         <div>Coordinators operate in a supportive, administrative capacity. We do not perform licensed real estate activities.</div>
       </motion.div>
+      {/* Giant wordmark */}
+      <div className="relative overflow-hidden">
+        <motion.div
+          aria-hidden
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="pointer-events-none select-none px-6 pb-4 text-center font-display text-[18vw] font-bold leading-none tracking-tight"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          YayTrack
+        </motion.div>
+      </div>
     </footer>
   );
 }
