@@ -88,8 +88,35 @@ function Hero() {
   return (
     <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 -left-32 h-[480px] w-[480px] rounded-full bg-accent-warm/10 blur-3xl" />
-        <div className="absolute -bottom-40 right-0 h-[520px] w-[520px] rounded-full bg-[#FFE9DD]/60 blur-3xl" />
+        <motion.div
+          aria-hidden
+          className="absolute -top-32 -left-32 h-[480px] w-[480px] rounded-full bg-accent-warm/10 blur-3xl"
+          animate={{ x: [0, 40, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden
+          className="absolute -bottom-40 right-0 h-[520px] w-[520px] rounded-full bg-[#FFE9DD]/60 blur-3xl"
+          animate={{ x: [0, -50, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden
+          className="absolute top-1/3 left-1/2 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-[#C5D94A]/15 blur-3xl"
+          animate={{ x: [-20, 30, -20], y: [10, -20, 10], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* subtle grid */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(26,26,26,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(26,26,26,.6) 1px,transparent 1px)",
+            backgroundSize: "44px 44px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+          }}
+        />
       </div>
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
         <div>
