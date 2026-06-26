@@ -16,6 +16,7 @@ import { Footer } from "@/components/site/Footer";
 import { PageLoader } from "@/components/site/PageLoader";
 import { RouteLoadingOverlay } from "@/components/site/RouteLoadingOverlay";
 import { CoordinatorWidget } from "@/components/site/CoordinatorWidget";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 
 function NotFoundComponent() {
   return (
@@ -126,6 +127,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SmoothScroll />
       <PageLoader />
       <RouteLoadingOverlay />
       <div className="flex min-h-screen flex-col">

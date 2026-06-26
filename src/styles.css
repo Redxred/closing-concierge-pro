@@ -101,6 +101,13 @@
   --brand-yellow: #B8D400;   /* bright yellow-green CTA */
   --brand-ink: #1A1A2E;      /* near-black text */
 
+  /* YayTrack light landing palette */
+  --surface-soft: #FAFAF8;
+  --ink: #1A1A1A;
+  --accent-warm: #FF7A45;
+  --shadow-soft: 0 10px 40px -20px rgba(20, 20, 20, 0.18), 0 2px 8px rgba(20, 20, 20, 0.04);
+  --shadow-lift: 0 30px 80px -30px rgba(20, 20, 20, 0.28), 0 8px 20px rgba(20, 20, 20, 0.06);
+
   --gradient-hero: linear-gradient(135deg, #2D6B5E 0%, #4A8C6F 50%, #C5D94A 100%);
   --gradient-brand: linear-gradient(90deg, #B8D400 0%, #C5D94A 100%);
   --gradient-cool: linear-gradient(135deg, #2D6B5E 0%, #3D7A6A 60%, #4A8C6F 100%);
@@ -228,6 +235,20 @@
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
   }
+
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-lift { box-shadow: var(--shadow-lift); }
+  .text-accent-warm { color: var(--accent-warm); }
+  .bg-accent-warm { background-color: var(--accent-warm); }
+  .bg-surface-soft { background-color: var(--surface-soft); }
+  .text-ink { color: var(--ink); }
+  .tilt-3d { transform-style: preserve-3d; perspective: 1000px; }
+
+  @keyframes bounce-cue {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+  .animate-bounce-cue { animation: bounce-cue 1.8s ease-in-out infinite; }
 }
 
 @layer utilities {
