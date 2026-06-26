@@ -255,11 +255,23 @@ const features = [
 
 function FeatureGrid() {
   return (
-    <section className="bg-white py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-12 text-center">
+    <section className="relative overflow-hidden bg-white py-24">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-80 w-[80%] -translate-x-1/2 rounded-full bg-[#FFE9DD]/40 blur-3xl"
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div className="relative mx-auto max-w-6xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ type: "spring", stiffness: 120, damping: 18 }}
+          className="mb-12 text-center"
+        >
           <h2 className="font-display text-4xl font-bold text-ink md:text-5xl">Everything the deal needs. Nothing you don't.</h2>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => {
             const Icon = f.icon;
@@ -270,11 +282,16 @@ function FeatureGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ type: "spring", stiffness: 120, damping: 18, delay: (i % 3) * 0.06 }}
+                whileHover={{ y: -4 }}
               >
                 <TiltCard className="rounded-2xl border border-ink/10 bg-white p-6 shadow-soft hover:shadow-lift transition-shadow">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFF4EE] text-accent-warm">
+                  <motion.div
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFF4EE] text-accent-warm"
+                    whileHover={{ rotate: [0, -8, 8, 0], scale: 1.08 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <Icon className="h-5 w-5" />
-                  </div>
+                  </motion.div>
                   <div className="mt-4 font-semibold text-ink">{f.label}</div>
                 </TiltCard>
               </motion.div>
@@ -289,20 +306,27 @@ function FeatureGrid() {
 /* ---------- PROOF / NUMBERS ---------- */
 function ProofNumbers() {
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="relative overflow-hidden py-24">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-warm/5 blur-3xl"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div className="relative mx-auto max-w-5xl px-6">
         <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3">
           {[
             { value: 12, suffix: "+", label: "hours saved per deal" },
             { value: 10000, suffix: "+", label: "deals managed" },
             { value: 5, suffix: " min", label: "live in under" },
-          ].map((s) => (
+          ].map((s, i) => (
             <motion.div
               key={s.label}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ type: "spring", stiffness: 120, damping: 18 }}
+              transition={{ type: "spring", stiffness: 120, damping: 18, delay: i * 0.08 }}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               className="rounded-3xl border border-ink/10 bg-white p-10 shadow-soft"
             >
               <div className="font-display text-5xl font-bold text-ink md:text-6xl">
