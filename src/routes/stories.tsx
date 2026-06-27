@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Building2, Clock, FileCheck2, Quote, Sparkles, TrendingUp, Users } from "lucide-react";
 import { LazySection } from "@/components/site/LazySection";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -204,7 +205,12 @@ function StoriesGrid() {
           i < 1 ? (
             <StoryCard key={s.agent} story={s} index={i} />
           ) : (
-            <LazySection key={s.agent} minHeight={420} rootMargin="600px 0px">
+            <LazySection
+              key={s.agent}
+              minHeight={420}
+              rootMargin="600px 0px"
+              fallback={<StoryCardSkeleton flipped={i % 2 === 1} />}
+            >
               <StoryCard story={s} index={i} />
             </LazySection>
           ),
@@ -332,5 +338,55 @@ function CTA() {
         </div>
       </div>
     </section>
+  );
+}
+
+function StoryCardSkeleton({ flipped }: { flipped: boolean }) {
+  return (
+    <div
+      className="relative overflow-hidden rounded-[28px] border border-ink/10 bg-white p-8 shadow-soft md:p-10"
+      aria-hidden
+    >
+      <div
+        className={`grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center ${
+          flipped ? "md:[&>*:first-child]:order-2" : ""
+        }`}
+      >
+        <div>
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <Skeleton className="h-6 w-24 rounded-full" />
+            <Skeleton className="h-4 w-48" />
+          </div>
+          <Skeleton className="h-8 w-3/4" />
+          <div className="mt-6 space-y-4">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-11/12" />
+            <Skeleton className="h-3 w-24 mt-3" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-10/12" />
+          </div>
+          <div className="mt-6 rounded-2xl bg-[#FAFAF8] p-5">
+            <Skeleton className="h-4 w-4 rounded" />
+            <Skeleton className="mt-3 h-5 w-full" />
+            <Skeleton className="mt-2 h-5 w-4/5" />
+            <Skeleton className="mt-3 h-3 w-32" />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-1">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="rounded-2xl border border-ink/10 bg-white p-5 shadow-soft">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-10 w-10 rounded-xl" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-6 w-20" />
+                  <Skeleton className="h-3 w-28" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
