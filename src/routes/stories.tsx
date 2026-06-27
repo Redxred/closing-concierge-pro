@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Building2, Clock, FileCheck2, Quote, Sparkles, TrendingUp, Users } from "lucide-react";
 import { LazySection } from "@/components/site/LazySection";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -204,7 +205,12 @@ function StoriesGrid() {
           i < 1 ? (
             <StoryCard key={s.agent} story={s} index={i} />
           ) : (
-            <LazySection key={s.agent} minHeight={420} rootMargin="600px 0px">
+            <LazySection
+              key={s.agent}
+              minHeight={420}
+              rootMargin="600px 0px"
+              fallback={<StoryCardSkeleton flipped={i % 2 === 1} />}
+            >
               <StoryCard story={s} index={i} />
             </LazySection>
           ),
