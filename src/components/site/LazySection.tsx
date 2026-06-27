@@ -12,11 +12,13 @@ export function LazySection({
   rootMargin = "400px 0px",
   minHeight = 600,
   className,
+  fallback,
 }: {
   children: ReactNode;
   rootMargin?: string;
   minHeight?: number;
   className?: string;
+  fallback?: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
@@ -49,7 +51,7 @@ export function LazySection({
       className={className}
       style={show ? undefined : { minHeight, contentVisibility: "auto", containIntrinsicSize: `1px ${minHeight}px` }}
     >
-      {show ? children : null}
+      {show ? children : fallback ?? null}
     </div>
   );
 }
