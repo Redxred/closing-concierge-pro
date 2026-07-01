@@ -318,6 +318,9 @@ function PricingPage() {
         </motion.div>
       </section>
 
+      {/* Full feature comparison */}
+      <PricingComparison />
+
       {/* Closing line */}
       <section className="pb-28">
         <motion.div
