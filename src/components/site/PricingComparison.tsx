@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { motion } from "motion/react";
 import { Check, Minus, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -325,8 +326,8 @@ export function PricingComparison() {
 
               <tbody>
                 {SECTIONS.map((section) => (
-                  <>
-                    <tr key={section.title + "-h"} className="bg-muted/30">
+                  <Fragment key={section.title}>
+                    <tr className="bg-muted/30">
                       <td
                         colSpan={4}
                         className="px-6 py-3 text-xs font-bold uppercase tracking-wider text-brand-purple"
@@ -358,7 +359,7 @@ export function PricingComparison() {
                         ))}
                       </tr>
                     ))}
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
