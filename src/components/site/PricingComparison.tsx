@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { motion } from "motion/react";
+import { motion, LayoutGroup } from "motion/react";
 import { Check, Minus, Sparkles, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -390,34 +390,47 @@ function MobileComparison() {
 
   return (
     <div className="md:hidden">
-      {/* Plan picker */}
-      <div
-        role="tablist"
-        aria-label="Select a plan to compare"
-        className="grid grid-cols-3 gap-2 rounded-2xl border border-border bg-muted/50 p-1"
-      >
-        {TIERS.map((tier, i) => {
-          const active = i === tierIdx;
-          return (
-            <button
-              key={tier}
-              role="tab"
-              aria-selected={active}
-              onClick={() => setTierIdx(i as 0 | 1 | 2)}
-              className={cn(
-                "relative rounded-xl py-2.5 text-sm font-bold transition-all",
-                active
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {tier}
-              {i === 1 && (
-                <span className="absolute -right-1 -top-1 inline-flex h-2 w-2 rounded-full bg-brand-pink" />
-              )}
-            </button>
-          );
-        })}
+      {/* Sticky segmented plan switcher — stays visible while browsing sections */}
+      <div className="sticky top-16 z-20 -mx-6 px-6 pb-2 pt-2 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+        <LayoutGroup id="mobile-plan-switcher">
+          <div
+            role="tablist"
+            aria-label="Select a plan to compare"
+            className="relative grid grid-cols-3 gap-1 rounded-full border border-border bg-muted/60 p-1 shadow-sm"
+          >
+            {TIERS.map((tier, i) => {
+              const active = i === tierIdx;
+              return (
+                <button
+                  key={tier}
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setTierIdx(i as 0 | 1 | 2)}
+                  className={cn(
+                    "relative z-[1] rounded-full py-2 text-sm font-bold transition-colors",
+                    active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="mobile-plan-pill"
+                      className="absolute inset-0 -z-[1] rounded-full bg-card shadow-md ring-1 ring-border/70"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative inline-flex items-center gap-1.5">
+                    {tier}
+                    {i === 1 && (
+                      <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                    )}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </LayoutGroup>
       </div>
 
       {/* Accordion sections */}
