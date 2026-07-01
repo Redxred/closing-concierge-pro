@@ -1,6 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { motion } from "motion/react";
-import { Check, Minus, Sparkles } from "lucide-react";
+import { Check, Minus, Sparkles, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Cell = boolean | string | number;
@@ -291,20 +291,24 @@ export function PricingComparison() {
         transition={{ duration: 0.6 }}
         className="mx-auto mt-10 max-w-6xl px-6"
       >
-        <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-card">
+        {/* Mobile: single-plan accordion */}
+        <MobileComparison />
+
+        {/* Desktop: full table */}
+        <div className="hidden overflow-hidden rounded-3xl border border-border bg-card shadow-card md:block">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse text-left">
               {/* Sticky header */}
               <thead className="sticky top-0 z-10 bg-card/95 backdrop-blur">
                 <tr className="border-b border-border">
-                  <th className="w-[40%] px-6 py-5 text-sm font-semibold text-muted-foreground">
+                  <th className="sticky left-0 z-10 w-[40%] bg-card/95 px-4 py-5 text-sm font-semibold text-muted-foreground backdrop-blur sm:px-6">
                     Features
                   </th>
                   {TIERS.map((tier, i) => (
                     <th
                       key={tier}
                       className={cn(
-                        "px-6 py-5 text-center",
+                        "px-4 py-5 text-center sm:px-6",
                         i === 1 && "bg-brand-purple/5"
                       )}
                     >
@@ -330,7 +334,7 @@ export function PricingComparison() {
                     <tr className="bg-muted/30">
                       <td
                         colSpan={4}
-                        className="px-6 py-3 text-xs font-bold uppercase tracking-wider text-brand-purple"
+                        className="sticky left-0 px-4 py-3 text-xs font-bold uppercase tracking-wider text-brand-purple sm:px-6"
                       >
                         {section.title}
                       </td>
@@ -341,8 +345,8 @@ export function PricingComparison() {
                         className="border-t border-border/60 transition-colors hover:bg-muted/40"
                       >
                         <td
-                          className="px-6 py-3 text-sm text-foreground/90"
-                          style={{ paddingLeft: `${24 + (row.indent ?? 0) * 20}px` }}
+                          className="sticky left-0 z-[1] bg-card px-4 py-3 text-sm text-foreground/90 sm:px-6"
+                          style={{ paddingLeft: `${16 + (row.indent ?? 0) * 16}px` }}
                         >
                           {row.label}
                         </td>
@@ -350,7 +354,7 @@ export function PricingComparison() {
                           <td
                             key={i}
                             className={cn(
-                              "px-6 py-3 text-center",
+                              "px-4 py-3 text-center sm:px-6",
                               i === 1 && "bg-brand-purple/5"
                             )}
                           >
@@ -375,5 +379,103 @@ export function PricingComparison() {
         </p>
       </motion.div>
     </section>
+  );
+}
+
+/* ─────────── Mobile view: plan picker + accordion sections ─────────── */
+
+function MobileComparison() {
+  const [tierIdx, setTierIdx] = useState<0 | 1 | 2>(1);
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
+
+  return (
+    <div className="md:hidden">
+      {/* Plan picker */}
+      <div
+        role="tablist"
+        aria-label="Select a plan to compare"
+        className="grid grid-cols-3 gap-2 rounded-2xl border border-border bg-muted/50 p-1"
+      >
+        {TIERS.map((tier, i) => {
+          const active = i === tierIdx;
+          return (
+            <button
+              key={tier}
+              role="tab"
+              aria-selected={active}
+              onClick={() => setTierIdx(i as 0 | 1 | 2)}
+              className={cn(
+                "relative rounded-xl py-2.5 text-sm font-bold transition-all",
+                active
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {tier}
+              {i === 1 && (
+                <span className="absolute -right-1 -top-1 inline-flex h-2 w-2 rounded-full bg-brand-pink" />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Accordion sections */}
+      <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card shadow-card">
+        {SECTIONS.map((section, si) => {
+          const isOpen = openIdx === si;
+          return (
+            <div
+              key={section.title}
+              className={cn(
+                "border-b border-border/60 last:border-b-0",
+                isOpen && "bg-muted/20"
+              )}
+            >
+              <button
+                type="button"
+                aria-expanded={isOpen}
+                onClick={() => setOpenIdx(isOpen ? null : si)}
+                className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left"
+              >
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-purple">
+                  {section.title}
+                </span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-muted-foreground transition-transform duration-300",
+                    isOpen && "rotate-180"
+                  )}
+                />
+              </button>
+              {isOpen && (
+                <ul className="divide-y divide-border/60 border-t border-border/60 bg-card">
+                  {section.rows.map((row, ri) => (
+                    <li
+                      key={ri}
+                      className="flex items-center justify-between gap-3 px-4 py-3"
+                      style={{ paddingLeft: `${16 + (row.indent ?? 0) * 16}px` }}
+                    >
+                      <span className="min-w-0 pr-2 text-sm text-foreground/90">
+                        {row.label}
+                      </span>
+                      <span className="shrink-0">
+                        <CellRender value={row.values[tierIdx]} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="mt-3 text-center text-[11px] text-muted-foreground">
+        Showing features for{" "}
+        <span className="font-semibold text-foreground">{TIERS[tierIdx]}</span>{" "}
+        · tap a plan above to switch
+      </p>
+    </div>
   );
 }
